@@ -5,6 +5,8 @@ import org.junit.Test
 import static org.junit.Assert.*
 import org.joda.time.DateTime
 import org.junit.Before
+import ar.edu.unq.epers.model.Usuario
+import ar.edu.unq.epers.model.Sistema
 
 class UsuariosTest {
 	
@@ -17,7 +19,7 @@ class UsuariosTest {
 		
 	}
 	
-	@Test (expected=UsuarioYaExisteException.class)
+	@Test(expected=UsuarioYaExisteException.class)
 	def registrarUsuarioExistente(){
 		
 		sistema.registrarUsuario(usuario)		
