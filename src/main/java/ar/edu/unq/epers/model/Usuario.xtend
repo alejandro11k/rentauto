@@ -17,9 +17,13 @@ class Usuario {
 		this.usuario = usuario
 		this.password = password
 		this.mail = mail
-		this.nacimiento = nacimiento		
+		this.nacimiento = nacimiento
 	}
 	
-	
+	override equals(Object other) {
+	    if (other == null) return false;
+	    if (other == this) return true;
+	    if (other instanceof Usuario) return true;
+	}
 	
 }

@@ -18,16 +18,21 @@ class UsuariosTest {
 	DateTime fecha
 	
 	@Before
-	def setUp(){
+	def void setUp(){
 		fecha = new DateTime(1980,04,11,0,0)
 		usuario = new Usuario('Alejandro','Kro','ak','123','a@a.com',fecha)
-		sistema = new Sistema()
+		sistema = new Sistema
 		sistema.registrarUsuario(usuario)
 		
 	}
 	
-	@Test(expected = UsuarioYaExisteException.class)
-	def registrarUsuarioExistente(){
+	@Test
+	def void igualdadEntreUsuarios(){
+		assertEquals(usuario,usuario)
+	}
+	
+	@Test(expected = UsuarioYaExisteException)
+	def void registrarUsuarioExistente(){
 		
 		sistema.registrarUsuario(usuario)
 	}
@@ -40,7 +45,7 @@ class UsuariosTest {
 		
 	}
 	
-	@Test (expected=ValidacionException.class)
+	@Test (expected=ValidacionException)
 	def validacionDeCuentaConCodigoIncorrecto(){
 		
 		sistema.validarCuenta(usuario.getCodigoDeValidacion())
@@ -56,20 +61,20 @@ class UsuariosTest {
 		assertEquals(usuario, usuarioLogeado)
 	}
 	
-	@Test (expected=UsuarioNoRegistradoException.class)
+	@Test (expected=UsuarioNoRegistradoException)
 	def ingresoDeUsuarioNoValidado(){
 		
 		sistema.ingresarUsuario(usuario.getNombreDeUsuario(), '123')
 	}
 	
-	@Test (expected=UsuarioNoExiste.class)
+	@Test (expected=UsuarioNoExiste)
 	def ingresoDeUsuarioValidadoPasswordIncorrecta(){
 		
 		sistema.validarCuenta(usuario.getCodigoDeValidacion())
 		sistema.ingresarUsuario(usuario.getNombreDeUsuario(), '555')
 	}
 	
-	@Test (expected=UsuarioNoExiste.class)
+	@Test (expected=UsuarioNoExiste)
 	def ingresoDeUsuarioNoExistente(){
 		
 		sistema.validarCuenta(usuario.getCodigoDeValidacion())
@@ -88,7 +93,7 @@ class UsuariosTest {
 		assertEquals(usuario, usuarioIngresado)
 	}
 	
-	@Test (expected=NuevaPasswordInvalida.class)
+	@Test (expected=NuevaPasswordInvalida)
 	def cambioDePasswordInvalido(){
 		
 		sistema.validarCodigoDeUsuario(usuario,usuario.getCodigoDeValidacion())

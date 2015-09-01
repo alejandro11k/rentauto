@@ -12,8 +12,16 @@ class Sistema {
 		this.persistor = new HomeEnMemoria()
 	}	
 	
-	def registrarUsuario(Usuario usuario)throws UsuarioYaExisteException{
-		
+	def registrarUsuario(Usuario usuario) throws UsuarioYaExisteException{
+		var usuarioObtenido = persistor.dameAlUsuario(usuario)
+		if (usuarioObtenido == null)
+		{
+			persistor.agregaUsuario(usuario)
+		}
+		else
+		{
+			throw new UsuarioYaExisteException()
+		}
 	}
 	
 }
