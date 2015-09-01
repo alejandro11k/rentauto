@@ -21,9 +21,10 @@ class Usuario {
 	}
 	
 	override equals(Object other) {
-	    if (other == null) return false;
-	    if (other == this) return true;
-	    if (other instanceof Usuario) return true;
+	    if (other == null) 
+	    	return false
+	    if (other instanceof Usuario)
+	    	return other.usuario == this.usuario
 	}
 	
 }
