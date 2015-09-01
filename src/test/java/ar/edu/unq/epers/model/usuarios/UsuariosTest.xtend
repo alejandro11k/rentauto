@@ -1,28 +1,35 @@
 package ar.edu.unq.epers.model.usuarios
 
+import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
+import ar.edu.unq.epers.exceptions.UsuarioYaExisteException
+import ar.edu.unq.epers.exceptions.ValidacionException
+import ar.edu.unq.epers.model.Sistema
+import ar.edu.unq.epers.model.Usuario
+import org.joda.time.DateTime
+import org.junit.Before
 import org.junit.Test
 
 import static org.junit.Assert.*
-import org.joda.time.DateTime
-import org.junit.Before
-import ar.edu.unq.epers.model.Usuario
-import ar.edu.unq.epers.model.Sistema
 
 class UsuariosTest {
 	
+	Sistema sistema
+	Usuario usuario
+	DateTime fecha
+	
 	@Before
 	def setUp(){
-		var fecha = new DateTime(1980,04,11,0,0)
-		var usuario = new Usuario('Alejandro','Kro','ak','123','a@a.com',fecha)
-		var sistema = new Sistema()
+		fecha = new DateTime(1980,04,11,0,0)
+		usuario = new Usuario('Alejandro','Kro','ak','123','a@a.com',fecha)
+		sistema = new Sistema()
 		sistema.registrarUsuario(usuario)
 		
 	}
 	
-	@Test(expected=UsuarioYaExisteException.class)
+	@Test(expected = UsuarioYaExisteException.class)
 	def registrarUsuarioExistente(){
 		
-		sistema.registrarUsuario(usuario)		
+		sistema.registrarUsuario(usuario)
 	}
 	
 	@Test

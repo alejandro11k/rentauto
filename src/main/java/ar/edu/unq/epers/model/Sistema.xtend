@@ -2,6 +2,7 @@ package ar.edu.unq.epers.model
 
 import ar.edu.unq.epers.home.Home
 import ar.edu.unq.epers.home.HomeEnMemoria
+import ar.edu.unq.epers.exceptions.UsuarioYaExisteException
 
 class Sistema {
 
@@ -11,7 +12,7 @@ class Sistema {
 		this.persistor = new HomeEnMemoria()
 	}	
 	
-	def registrarUsuario(Usuario usuario){
+	def registrarUsuario(Usuario usuario)throws UsuarioYaExisteException{
 		
 	}
 	

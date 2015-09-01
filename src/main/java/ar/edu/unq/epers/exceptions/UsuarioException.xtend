@@ -1,19 +1,19 @@
 package ar.edu.unq.epers.exceptions
 
-import java.lang.RuntimeException
+import java.lang.Exception
 
-class UsuarioYaExisteException extends RuntimeException {
+class UsuarioYaExisteException extends Exception {
 	
 }
 
-class ValidacionException extends RuntimeException {
+class ValidacionException extends Exception {
 	
 }
 
-class UsuarioNoExisteException extends RuntimeException {
+class UsuarioNoExisteException extends Exception {
 	
 }
 
-class NuevaPasswordInvalida extends RuntimeException {
+class NuevaPasswordInvalida extends Exception {
 	
 }
