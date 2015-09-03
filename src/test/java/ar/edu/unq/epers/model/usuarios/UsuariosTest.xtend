@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 import org.junit.Test
 import static org.junit.Assert.*
 import org.junit.Before
+import ar.edu.unq.epers.model.Validador
 
 class UsuariosTest {
 	
@@ -32,6 +33,13 @@ class UsuariosTest {
 	def void registrarUsuarioExistente(){
 		
 		sistema.registrarUsuario(usuario)
+	}
+	
+	@Test
+	def obterCodigoDeValidacion(){
+		var validador = new Validador
+		assertEquals(validador.generarCodigoDeValidacion.length,6)
+		
 	}
 	
 	@Test
