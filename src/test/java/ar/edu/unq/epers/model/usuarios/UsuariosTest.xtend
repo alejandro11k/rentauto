@@ -19,6 +19,7 @@ class UsuariosTest {
 	def void setUp(){
 		fecha = new DateTime(1980,04,11,0,0)
 		usuario = new Usuario('Alejandro','Kro','ak','123','a@a.com',fecha)
+		
 		sistema = new Sistema
 		sistema.registrarUsuario(usuario)
 		
@@ -32,7 +33,9 @@ class UsuariosTest {
 	@Test(expected = UsuarioYaExisteException)
 	def void registrarUsuarioExistente(){
 		
-		sistema.registrarUsuario(usuario)
+		var usuarioBis = new Usuario('Alejandru','Kro','ak','123','a@a.com',fecha)
+		sistema.registrarUsuario(usuarioBis)
+		
 	}
 	
 	@Test
@@ -45,7 +48,8 @@ class UsuariosTest {
 	@Test
 	def validacionDeUsuario(){
 		
-		sistema.validarCuenta(usuario.getCodigoDeValidacion())
+		var codigoDeValidacion = sistema.getCodigoDeValidacion(usuario.getUsuario)
+		sistema.validarCuenta(codigoDeValidacion)
 		assertTrue(sistema.estaValidado(usuario))
 		
 	}

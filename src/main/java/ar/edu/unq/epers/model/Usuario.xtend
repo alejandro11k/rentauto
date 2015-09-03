@@ -10,6 +10,7 @@ class Usuario {
 	String password
 	String mail
 	DateTime nacimiento
+	Boolean estaValidado
 	
 	new(String nombre, String apellido, String usuario, String password, String mail, DateTime nacimiento)
 	{
@@ -19,6 +20,11 @@ class Usuario {
 		this.password = password
 		this.mail = mail
 		this.nacimiento = nacimiento
+		this.estaValidado = false
+	}
+	
+	def getUsuario(){
+		this.usuario
 	}
 	
 	override equals(Object other)

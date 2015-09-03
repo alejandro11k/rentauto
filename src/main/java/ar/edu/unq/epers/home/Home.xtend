@@ -6,5 +6,7 @@ interface Home {
 	
 	def Usuario dameAlUsuario(Usuario usuario)
 	def void agregaUsuario(Usuario usuario)
-	
+	def void agregarValidacionPendiente(Pair<String,String> usuarioCodigo)
+	// for test only
+	def String getCodigoDeValidacion(String Usuario)
 }
