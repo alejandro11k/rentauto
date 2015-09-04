@@ -9,6 +9,7 @@ import static org.junit.Assert.*
 import org.junit.Before
 import ar.edu.unq.epers.model.Validador
 import ar.edu.unq.epers.exceptions.ValidacionException
+import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
 
 class UsuariosTest {
 	
@@ -61,15 +62,15 @@ class UsuariosTest {
 		sistema.validarCuenta(usuario.getCodigoDeValidacion())
 		sistema.validarCuenta(usuario.getCodigoDeValidacion())
 	}
-//	
-//	@Test
-//	def ingresoDeUsuarioValidado(){
-//		
-//		sistema.validarCuenta(usuario.getCodigoDeValidacion())
-//		val usuarioIngresado = sistema.ingresarUsuario(usuario.getNombreDeUsuario(), '123')
-//		
-//		assertEquals(usuario, usuarioLogeado)
-//	}
+	
+	@Test
+	def ingresoDeUsuarioValidado(){
+		
+		sistema.validarCuenta(usuario.getCodigoDeValidacion())
+		val usuarioIngresado = sistema.ingresarUsuario(usuario.usuario, '123')
+		
+		assertEquals(usuario, usuarioIngresado)
+	}
 //	
 //	@Test (expected=UsuarioNoRegistradoException)
 //	def ingresoDeUsuarioNoValidado(){
@@ -77,12 +78,12 @@ class UsuariosTest {
 //		sistema.ingresarUsuario(usuario.getNombreDeUsuario(), '123')
 //	}
 //	
-//	@Test (expected=UsuarioNoExiste)
-//	def ingresoDeUsuarioValidadoPasswordIncorrecta(){
-//		
-//		sistema.validarCuenta(usuario.getCodigoDeValidacion())
-//		sistema.ingresarUsuario(usuario.getNombreDeUsuario(), '555')
-//	}
+	@Test (expected=UsuarioNoExisteException)
+	def void ingresoDeUsuarioValidadoPasswordIncorrecta(){
+		
+		sistema.validarCuenta(usuario.codigoDeValidacion)
+		sistema.ingresarUsuario(usuario.usuario, '555')
+	}
 //	
 //	@Test (expected=UsuarioNoExiste)
 //	def ingresoDeUsuarioNoExistente(){

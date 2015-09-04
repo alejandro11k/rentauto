@@ -3,7 +3,7 @@ package ar.edu.unq.epers.model
 import org.joda.time.DateTime
 import org.eclipse.xtend.lib.annotations.Accessors
 
-class Usuario {
+@Accessors class Usuario {
 	
 	String nombre
 	String apellido
@@ -11,10 +11,7 @@ class Usuario {
 	String password
 	String mail
 	DateTime nacimiento
-	
-	@Accessors
 	String codigoDeValidacion
-	@Accessors
 	boolean estaValidado
 	
 	new(String nombre, String apellido, String usuario, String password, String mail, DateTime nacimiento)
@@ -28,8 +25,9 @@ class Usuario {
 		this.estaValidado = false
 	}
 	
-	def getUsuario(){
-		this.usuario
+	def passwordValida(String unaPassword){
+		// Indica si un password es valida.
+		password == unaPassword
 	}
 	
 	override equals(Object other)

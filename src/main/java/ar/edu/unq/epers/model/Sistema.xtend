@@ -5,6 +5,7 @@ import ar.edu.unq.epers.home.Home
 import ar.edu.unq.epers.home.HomeEnMemoria
 import java.util.Map
 import ar.edu.unq.epers.exceptions.ValidacionException
+import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
 
 class Sistema {
 
@@ -57,5 +58,14 @@ class Sistema {
 	
 	def boolean estaValidado(Usuario usuario){
 		usuario.estaValidado && persistorDeUsuarios.noIncluye(usuario)
-	}	
+	}
+	
+	def ingresarUsuario(String unNombreDeUsuario, String unaClaveDeUsuario) {
+		var usuario = persistorDeUsuarios.dameAlUsuarioConNombre(unNombreDeUsuario)
+		if (usuario.passwordValida(unaClaveDeUsuario))
+			return usuario
+		else
+			throw new UsuarioNoExisteException
+	}
+	
 }
