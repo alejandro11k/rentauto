@@ -43,12 +43,17 @@ class HomeEnMemoria implements Home{
 	}
 	
 	override dameAlUsuarioConCodigo(String unCodigoDeValidacion) {
-		var validacionesIt = validaciones.entrySet.iterator
+//		var validacionesIt = validaciones.entrySet.iterator
+//		
+//		while (validacionesIt.hasNext){
+//			if (validacionesIt.next.value == unCodigoDeValidacion)
+//				return dameAlUsuarioConNombre(validacionesIt.next.key)
+//		}
 		
-		while (validacionesIt.hasNext){
-			if (validacionesIt.next.value == unCodigoDeValidacion)
-				return dameAlUsuarioConNombre(validacionesIt.next.key)
-		}
+		for (Map.Entry<String,String> entry : validaciones.entrySet()) {
+		    if (entry.value == unCodigoDeValidacion)
+		    	return dameAlUsuarioConNombre(entry.key)
+		}		
 	}
 	
 	override borrarValidacionPara(Usuario unUsuario) {
@@ -60,13 +65,11 @@ class HomeEnMemoria implements Home{
 		usuarios.add(usuario)
 	}
 	
-	override dameAlUsuarioConNombre(String unNombreDeUsuario) {
-		var usuariosIt = usuarios.iterator
-		
-		while (usuariosIt.hasNext){
-			if (usuariosIt.next.usuario == unNombreDeUsuario)
-				return usuariosIt.next
-		}
+	override dameAlUsuarioConNombre(String unNombreDeUsuario) {	
+		for (Usuario usuario : usuarios) {
+		    if (usuario.usuario == unNombreDeUsuario)
+		    	return usuario
+		}	
 	}
 	
 }
