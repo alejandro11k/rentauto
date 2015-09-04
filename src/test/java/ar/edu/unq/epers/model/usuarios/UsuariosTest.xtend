@@ -10,6 +10,7 @@ import org.junit.Before
 import ar.edu.unq.epers.model.Validador
 import ar.edu.unq.epers.exceptions.ValidacionException
 import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
+import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
 
 class UsuariosTest {
 	
@@ -92,21 +93,21 @@ class UsuariosTest {
 	}
 	
 	
-//	@Test
-//	def cambioDePasswordCorrecto(){
-//		
-//		sistema.validarCodigoDeUsuario(usuario,usuario.getCodigoDeValidacion())
-//		sistema.cambiarPassword('ak','123','321')
-//		
-//		val usuarioIngresado = sistema.ingresarUsuario(usuario.getNombreDeUsuario(), '321')
-//		
-//		assertEquals(usuario, usuarioIngresado)
-//	}
-//	
-//	@Test (expected=NuevaPasswordInvalida)
-//	def cambioDePasswordInvalido(){
-//		
-//		sistema.validarCodigoDeUsuario(usuario,usuario.getCodigoDeValidacion())
-//		sistema.cambiarPassword('ak','123','123')
-//	}
+	@Test
+	def cambioDePasswordCorrecto(){
+		
+		sistema.validarCuenta(usuario.codigoDeValidacion)
+		sistema.cambiarPassword('ak','123','321')
+		
+		val usuarioIngresado = sistema.ingresarUsuario(usuario.usuario, '321')
+		
+		assertEquals(usuario, usuarioIngresado)
+	}
+	
+	@Test (expected=NuevaPasswordInvalida)
+	def cambioDePasswordInvalido(){
+		
+		sistema.validarCuenta(usuario.codigoDeValidacion)
+		sistema.cambiarPassword('ak','123','123')
+	}
 }

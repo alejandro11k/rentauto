@@ -3,6 +3,7 @@ package ar.edu.unq.epers.model
 import org.joda.time.DateTime
 import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
+import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
 
 @Accessors class Usuario {
 	
@@ -40,5 +41,12 @@ import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
 	    	return false
 	    if (other instanceof Usuario)
 	    	return other.usuario == this.usuario
-	}	
+	}
+	
+	def cambiarPassword(String passwordActual, String passwordNueva)throws NuevaPasswordInvalida {
+		if (passwordActual == password && passwordNueva != password)
+			password = passwordNueva
+		else
+			throw new NuevaPasswordInvalida
+	}
 }

@@ -6,6 +6,7 @@ import ar.edu.unq.epers.home.HomeEnMemoria
 import java.util.Map
 import ar.edu.unq.epers.exceptions.ValidacionException
 import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
+import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
 
 class Sistema {
 
@@ -66,6 +67,11 @@ class Sistema {
 			throw new UsuarioNoExisteException
 		usuario.passwordValida(unaClaveDeUsuario)
 
+	}
+	
+	def void cambiarPassword(String nombreDeUsuario, String passwordActual, String passwordNueva) throws NuevaPasswordInvalida {
+		var usuario = persistorDeUsuarios.dameAlUsuarioConNombre(nombreDeUsuario)
+		usuario.cambiarPassword(passwordActual, passwordNueva)
 	}
 	
 }
