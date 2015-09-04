@@ -1,6 +1,7 @@
 package ar.edu.unq.epers.model
 
 import org.joda.time.DateTime
+import org.eclipse.xtend.lib.annotations.Accessors
 
 class Usuario {
 	
@@ -10,7 +11,11 @@ class Usuario {
 	String password
 	String mail
 	DateTime nacimiento
-	Boolean estaValidado
+	
+	@Accessors
+	String codigoDeValidacion
+	@Accessors
+	boolean estaValidado
 	
 	new(String nombre, String apellido, String usuario, String password, String mail, DateTime nacimiento)
 	{

@@ -48,7 +48,7 @@ class UsuariosTest {
 	@Test
 	def validacionDeUsuario(){
 		
-		var codigoDeValidacion = sistema.getCodigoDeValidacion(usuario.getUsuario)
+		var codigoDeValidacion = usuario.codigoDeValidacion
 		sistema.validarCuenta(codigoDeValidacion)
 		assertTrue(sistema.estaValidado(usuario))
 		

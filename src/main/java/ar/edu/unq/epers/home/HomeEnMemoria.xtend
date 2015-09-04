@@ -3,16 +3,18 @@ package ar.edu.unq.epers.home
 import ar.edu.unq.epers.model.Usuario
 import java.util.Collection
 import java.util.ArrayList
+import java.util.Map
+import java.util.Set
 
 class HomeEnMemoria implements Home{
 	
-	Collection<Usuario> usuarios
-	Collection<Pair<String,String>> validaciones
+	Set<Usuario> usuarios
+	Map<String,String> validaciones
 	
 	new()
 	{
-		usuarios = newArrayList()
-		validaciones = newArrayList()
+		usuarios = newHashSet()
+		validaciones = newHashMap()
 	}
 	
 	override dameAlUsuario(Usuario usuario) {
@@ -24,15 +26,47 @@ class HomeEnMemoria implements Home{
 		return null
 	}
 	
+	
+	
 	override agregaUsuario(Usuario usuario) {
 		usuarios.add(usuario)
 	}
-	override  agregarValidacionPendiente(Pair<String,String> usuarioCodigo){
-		validaciones.add(usuarioCodigo)
+	override agregarValidacionPendiente(String unNombreDeUsuario,String unCodigoDeValidacion){
+		validaciones.put(unNombreDeUsuario, unCodigoDeValidacion)
 	}
-	override getCodigoDeValidacion(String usuario){
-		'hi'
+	override getCodigoDeValidacion(Usuario usuario){
+		usuario.codigoDeValidacion
 	}
 	
+	override noIncluye(Usuario usuario) {
+		!validaciones.containsKey(usuario.usuario)
+	}
+	
+	override dameAlUsuarioConCodigo(String unCodigoDeValidacion) {
+		var validacionesIt = validaciones.entrySet.iterator
+		
+		while (validacionesIt.hasNext){
+			if (validacionesIt.next.value == unCodigoDeValidacion)
+				return dameAlUsuarioConNombre(validacionesIt.next.key)
+		}
+	}
+	
+	override borrarValidacionPara(Usuario unUsuario) {
+		validaciones.remove(unUsuario)
+	}
+	
+	override actualizar(Usuario usuario) {
+		usuarios.remove(usuario)
+		usuarios.add(usuario)
+	}
+	
+	override dameAlUsuarioConNombre(String unNombreDeUsuario) {
+		var usuariosIt = usuarios.iterator
+		
+		while (usuariosIt.hasNext){
+			if (usuariosIt.next.usuario == unNombreDeUsuario)
+				return usuariosIt.next
+		}
+	}
 	
 }
