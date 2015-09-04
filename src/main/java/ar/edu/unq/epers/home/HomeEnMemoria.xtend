@@ -42,14 +42,7 @@ class HomeEnMemoria implements Home{
 		!validaciones.containsKey(usuario.usuario)
 	}
 	
-	override dameAlUsuarioConCodigo(String unCodigoDeValidacion) {
-//		var validacionesIt = validaciones.entrySet.iterator
-//		
-//		while (validacionesIt.hasNext){
-//			if (validacionesIt.next.value == unCodigoDeValidacion)
-//				return dameAlUsuarioConNombre(validacionesIt.next.key)
-//		}
-		
+	override dameAlUsuarioConCodigo(String unCodigoDeValidacion) {		
 		for (Map.Entry<String,String> entry : validaciones.entrySet()) {
 		    if (entry.value == unCodigoDeValidacion)
 		    	return dameAlUsuarioConNombre(entry.key)
@@ -57,7 +50,7 @@ class HomeEnMemoria implements Home{
 	}
 	
 	override borrarValidacionPara(Usuario unUsuario) {
-		validaciones.remove(unUsuario)
+		validaciones.remove(unUsuario.usuario)
 	}
 	
 	override actualizar(Usuario usuario) {
