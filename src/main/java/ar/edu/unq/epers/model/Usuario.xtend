@@ -2,6 +2,7 @@ package ar.edu.unq.epers.model
 
 import org.joda.time.DateTime
 import org.eclipse.xtend.lib.annotations.Accessors
+import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
 
 @Accessors class Usuario {
 	
@@ -25,9 +26,11 @@ import org.eclipse.xtend.lib.annotations.Accessors
 		this.estaValidado = false
 	}
 	
-	def passwordValida(String unaPassword){
-		// Indica si un password es valida.
-		password == unaPassword
+	def passwordValida(String unaPassword) throws UsuarioNoExisteException{
+		// Si un password es valida, me retorno a mi mismo.
+		if (password == unaPassword)
+			return this 
+		throw new UsuarioNoExisteException
 	}
 	
 	override equals(Object other)

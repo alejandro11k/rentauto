@@ -57,7 +57,7 @@ class UsuariosTest {
 	}
 	
 	@Test (expected=ValidacionException)
-	def validacionDeCuentaConCodigoIncorrecto(){
+	def void validacionDeCuentaConCodigoIncorrecto(){
 		
 		sistema.validarCuenta(usuario.getCodigoDeValidacion())
 		sistema.validarCuenta(usuario.getCodigoDeValidacion())
@@ -71,28 +71,27 @@ class UsuariosTest {
 		
 		assertEquals(usuario, usuarioIngresado)
 	}
-//	
-//	@Test (expected=UsuarioNoRegistradoException)
-//	def ingresoDeUsuarioNoValidado(){
-//		
-//		sistema.ingresarUsuario(usuario.getNombreDeUsuario(), '123')
-//	}
-//	
+	
+	@Test (expected=UsuarioNoExisteException)
+	def void ingresoDeUsuarioNoValidado(){
+		sistema.ingresarUsuario(usuario.usuario, '123')
+	}
+	
 	@Test (expected=UsuarioNoExisteException)
 	def void ingresoDeUsuarioValidadoPasswordIncorrecta(){
 		
 		sistema.validarCuenta(usuario.codigoDeValidacion)
 		sistema.ingresarUsuario(usuario.usuario, '555')
 	}
-//	
-//	@Test (expected=UsuarioNoExiste)
-//	def ingresoDeUsuarioNoExistente(){
-//		
-//		sistema.validarCuenta(usuario.getCodigoDeValidacion())
-//		sistema.ingresarUsuario('abc', '555')
-//	}
-//	
-//	
+	
+	@Test (expected=UsuarioNoExisteException)
+	def void ingresoDeUsuarioNoExistente(){
+		
+		sistema.validarCuenta(usuario.codigoDeValidacion)
+		sistema.ingresarUsuario('abc', '555')
+	}
+	
+	
 //	@Test
 //	def cambioDePasswordCorrecto(){
 //		

@@ -60,12 +60,12 @@ class Sistema {
 		usuario.estaValidado && persistorDeUsuarios.noIncluye(usuario)
 	}
 	
-	def ingresarUsuario(String unNombreDeUsuario, String unaClaveDeUsuario) {
+	def ingresarUsuario(String unNombreDeUsuario, String unaClaveDeUsuario) throws UsuarioNoExisteException {
 		var usuario = persistorDeUsuarios.dameAlUsuarioConNombre(unNombreDeUsuario)
-		if (usuario.passwordValida(unaClaveDeUsuario))
-			return usuario
-		else
+		if (usuario == null || !estaValidado(usuario))
 			throw new UsuarioNoExisteException
+		usuario.passwordValida(unaClaveDeUsuario)
+
 	}
 	
 }
