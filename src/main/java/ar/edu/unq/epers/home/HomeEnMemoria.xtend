@@ -65,4 +65,8 @@ class HomeEnMemoria implements Home{
 		}	
 	}
 	
+	override puedeValidarCodigo(String unCodigoDeValidacion) {
+		validaciones.containsValue(unCodigoDeValidacion)
+	}
+	
 }

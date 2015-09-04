@@ -4,6 +4,7 @@ import ar.edu.unq.epers.exceptions.UsuarioYaExisteException
 import ar.edu.unq.epers.home.Home
 import ar.edu.unq.epers.home.HomeEnMemoria
 import java.util.Map
+import ar.edu.unq.epers.exceptions.ValidacionException
 
 class Sistema {
 
@@ -43,10 +44,14 @@ class Sistema {
 	}
 	
 	def validarCuenta(String codigoDeValidacion){
-		var usuario = persistorDeUsuarios.dameAlUsuarioConCodigo(codigoDeValidacion)
-		usuario.estaValidado = true
-		persistorDeUsuarios.borrarValidacionPara(usuario)
-		persistorDeUsuarios.actualizar(usuario)
+		if (persistorDeUsuarios.puedeValidarCodigo(codigoDeValidacion)){
+			var usuario = persistorDeUsuarios.dameAlUsuarioConCodigo(codigoDeValidacion)
+			usuario.estaValidado = true
+			persistorDeUsuarios.borrarValidacionPara(usuario)
+			persistorDeUsuarios.actualizar(usuario)
+		}
+		else
+			throw new ValidacionException
 		
 	}
 	

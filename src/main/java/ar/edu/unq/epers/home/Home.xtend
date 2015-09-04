@@ -21,4 +21,6 @@ interface Home {
 	
 	def void actualizar(Usuario usuario)
 	
+	def boolean puedeValidarCodigo(String unCodigoDeValidacion)
+	
 }

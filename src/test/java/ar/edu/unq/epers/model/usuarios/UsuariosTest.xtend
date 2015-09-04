@@ -8,6 +8,7 @@ import org.junit.Test
 import static org.junit.Assert.*
 import org.junit.Before
 import ar.edu.unq.epers.model.Validador
+import ar.edu.unq.epers.exceptions.ValidacionException
 
 class UsuariosTest {
 	
@@ -53,13 +54,13 @@ class UsuariosTest {
 		assertTrue(sistema.estaValidado(usuario))
 		
 	}
-//	
-//	@Test (expected=ValidacionException)
-//	def validacionDeCuentaConCodigoIncorrecto(){
-//		
-//		sistema.validarCuenta(usuario.getCodigoDeValidacion())
-//		sistema.validarCuenta(usuario.getCodigoDeValidacion())		
-//	}
+	
+	@Test (expected=ValidacionException)
+	def validacionDeCuentaConCodigoIncorrecto(){
+		
+		sistema.validarCuenta(usuario.getCodigoDeValidacion())
+		sistema.validarCuenta(usuario.getCodigoDeValidacion())
+	}
 //	
 //	@Test
 //	def ingresoDeUsuarioValidado(){
