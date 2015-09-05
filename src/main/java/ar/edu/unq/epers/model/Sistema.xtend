@@ -7,6 +7,7 @@ import java.util.Map
 import ar.edu.unq.epers.exceptions.ValidacionException
 import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
 import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
+import ar.edu.unq.epers.home.HomeBBDD
 
 class Sistema {
 
@@ -17,6 +18,10 @@ class Sistema {
 		this.persistorDeUsuarios = new HomeEnMemoria()
 		this.validador = new Validador
 	}	
+	new(Home persistorDeUsuarios){
+		this.persistorDeUsuarios = new HomeBBDD()
+		this.validador = new Validador
+	}
 	
 	def registrarUsuario(Usuario usuario) throws UsuarioYaExisteException
 	// Registra un Usuario en el sistema.
