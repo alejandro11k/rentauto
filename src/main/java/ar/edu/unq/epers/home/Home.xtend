@@ -9,7 +9,6 @@ interface Home {
 	
 	def void agregaUsuario(Usuario usuario)
 	def void agregarValidacionPendiente(String unNombreDeUsuario, String unCodigoDeValidacion)
-	// for test only
 	def String getCodigoDeValidacion(Usuario unUsuario)
 	
 	// Un Usuario no existe en la lista de validaciones pendientes

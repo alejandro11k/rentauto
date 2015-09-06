@@ -1,25 +1,20 @@
 package ar.edu.unq.epers.model
 
-import ar.edu.unq.epers.exceptions.UsuarioYaExisteException
-import ar.edu.unq.epers.home.Home
-import ar.edu.unq.epers.home.HomeEnMemoria
-import java.util.Map
-import ar.edu.unq.epers.exceptions.ValidacionException
-import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
 import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
+import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
+import ar.edu.unq.epers.exceptions.UsuarioYaExisteException
+import ar.edu.unq.epers.exceptions.ValidacionException
+import ar.edu.unq.epers.home.Home
 import ar.edu.unq.epers.home.HomeBBDD
+import ar.edu.unq.epers.home.HomeEnMemoria
 
 class Sistema {
 
 	Home persistorDeUsuarios
 	Validador validador
 	
-	new(){
-		this.persistorDeUsuarios = new HomeEnMemoria()
-		this.validador = new Validador
-	}	
 	new(Home persistorDeUsuarios){
-		this.persistorDeUsuarios = new HomeBBDD()
+		this.persistorDeUsuarios = persistorDeUsuarios
 		this.validador = new Validador
 	}
 	
