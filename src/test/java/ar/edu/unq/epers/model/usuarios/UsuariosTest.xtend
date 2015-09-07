@@ -35,8 +35,8 @@ class UsuariosTest {
 		sistema = new Sistema(persistorEnMemoria)
 		sistema.registrarUsuario(usuario)
 		
-		sistemaBBDD = new Sistema(persistorEnBBDD)
-		sistemaBBDD.registrarUsuario(usuario)
+		//sistemaBBDD = new Sistema(persistorEnBBDD)
+		//sistemaBBDD.registrarUsuario(usuario)
 		
 	}
 	

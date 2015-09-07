@@ -25,14 +25,16 @@ class HomeBBDD implements Home{
 			var ResultSet rs = ps.executeQuery();
 
 			while(rs.next()){
-				u.nombre = rs.getString("NOMBRE");
-				u.apellido = rs.getString("APELLIDO");
-				u.usuario = rs.getString("USUARIO");
-				u.password = rs.getString("PASSWORD");
-				u.mail = rs.getString("MAIL");
-				u.nacimiento = new DateTime(rs.getDate("NACIMIENTO"))
-				u.codigoDeValidacion = rs.getString("CODIGODEVALIDACION");
-				u.estaValidado = rs.getBoolean("ESTAVALIDADO");
+				u = new Usuario(
+					rs.getString("NOMBRE"),
+					rs.getString("APELLIDO"),
+					rs.getString("USUARIO"),
+					rs.getString("PASSWORD"),
+					rs.getString("MAIL"),
+					new DateTime(rs.getDate("NACIMIENTO"))
+				)
+				u.codigoDeValidacion = rs.getString("CODIGODEVALIDACION")
+				u.estaValidado = rs.getBoolean("ESTAVALIDADO")
 			
 			}
 			

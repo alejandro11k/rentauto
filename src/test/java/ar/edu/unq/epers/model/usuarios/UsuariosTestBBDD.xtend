@@ -38,6 +38,11 @@ class UsuariosTestBBDD {
 		assertEquals(usuario,usuario)
 	}
 	
+	@Test
+	def void dameAlUsuario(){
+		assertEquals(persistor.dameAlUsuario(usuario),usuario)
+	}
+	
 	@Test(expected = UsuarioYaExisteException)
 	def void registrarUsuarioExistente(){
 		
