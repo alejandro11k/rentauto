@@ -10,11 +10,13 @@ import ar.edu.unq.epers.model.Sistema
 import ar.edu.unq.epers.model.Usuario
 import ar.edu.unq.epers.model.Validador
 import org.joda.time.DateTime
+import static org.mockito.Mockito.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
 import static org.junit.Assert.*
+import ar.edu.unq.epers.model.EnviadorDeMails
 
 class UsuariosTestBBDD {
 	
@@ -22,13 +24,15 @@ class UsuariosTestBBDD {
 	Usuario usuario
 	DateTime fecha
 	Home persistor
+	EnviadorDeMails enviadorDeMails
 	
 	@Before
 	def void setUp(){
 		fecha = new DateTime(1980,04,11,0,0)
 		usuario = new Usuario('Alejandro','Kro','ak','123','a@a.com',fecha)
 		persistor = new HomeBBDD()
-		sistema = new Sistema(persistor)
+		enviadorDeMails = mock(EnviadorDeMails)
+		sistema = new Sistema(persistor, enviadorDeMails)
 		sistema.registrarUsuario(usuario)
 		
 	}

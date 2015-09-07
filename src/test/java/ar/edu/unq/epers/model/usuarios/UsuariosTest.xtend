@@ -5,39 +5,36 @@ import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
 import ar.edu.unq.epers.exceptions.UsuarioYaExisteException
 import ar.edu.unq.epers.exceptions.ValidacionException
 import ar.edu.unq.epers.home.Home
-import ar.edu.unq.epers.home.HomeBBDD
 import ar.edu.unq.epers.home.HomeEnMemoria
 import ar.edu.unq.epers.model.Sistema
 import ar.edu.unq.epers.model.Usuario
 import ar.edu.unq.epers.model.Validador
 import org.joda.time.DateTime
+import static org.mockito.Mockito.*
 import org.junit.Before
 import org.junit.Test
 
 import static org.junit.Assert.*
+import ar.edu.unq.epers.model.EnviadorDeMails
 
 class UsuariosTest {
 	
 	Sistema sistema
-	Sistema sistemaBBDD
 	Usuario usuario
 	DateTime fecha
 	Home persistorEnMemoria
-	Home persistorEnBBDD
+	EnviadorDeMails enviadorDeMails
+	
 	
 	@Before
 	def void setUp(){
 		fecha = new DateTime(1980,04,11,0,0)
 		usuario = new Usuario('Alejandro','Kro','ak','123','a@a.com',fecha)
 		persistorEnMemoria = new HomeEnMemoria
-		persistorEnBBDD = new HomeBBDD
+		enviadorDeMails = mock(EnviadorDeMails)
 		
-		
-		sistema = new Sistema(persistorEnMemoria)
+		sistema = new Sistema(persistorEnMemoria, enviadorDeMails)
 		sistema.registrarUsuario(usuario)
-		
-		//sistemaBBDD = new Sistema(persistorEnBBDD)
-		//sistemaBBDD.registrarUsuario(usuario)
 		
 	}
 	

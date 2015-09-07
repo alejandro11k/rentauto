@@ -10,10 +10,12 @@ class Sistema {
 
 	Home persistorDeUsuarios
 	Validador validador
+	EnviadorDeMails enviador
 	
-	new(Home persistorDeUsuarios){
+	new(Home persistorDeUsuarios, EnviadorDeMails enviador){
 		this.persistorDeUsuarios = persistorDeUsuarios
 		this.validador = new Validador
+		this.enviador = enviador
 	}
 	
 	def registrarUsuario(Usuario usuario) throws UsuarioYaExisteException
@@ -29,7 +31,10 @@ class Sistema {
 			persistorDeUsuarios.agregaUsuario(usuario)
 			
 			// Agrego una nueva validacion pendiente a mi lista de validaciones pendientes
-			persistorDeUsuarios.agregarValidacionPendiente(usuario.usuario, nuevoCodigoDeValidacion)		
+			persistorDeUsuarios.agregarValidacionPendiente(usuario.usuario, nuevoCodigoDeValidacion)
+			
+			var mail = new Mail			
+			this.enviador.enviarMail(mail)		
 		}
 		else
 			throw new UsuarioYaExisteException()
