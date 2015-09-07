@@ -45,6 +45,28 @@ class HomeBBDD implements Home{
 		u
 	}
 	
+	def private dameNombreConCodigoDeValidacion(String unCodigoDeValidacion) {
+		var Connection conn = null;
+		var PreparedStatement ps = null;
+		var String u = null
+		try{
+			conn = this.getConnection();
+			ps = conn.prepareStatement("SELECT * FROM Validacion WHERE CODIGODEVALIDACION = ?");
+			ps.setString(1, unCodigoDeValidacion);
+			var ResultSet rs = ps.executeQuery();
+
+			while(rs.next()){
+				u = rs.getString("USUARIO")
+			}
+			
+			ps.close();
+		}finally{
+			close(conn,ps)
+		}
+		u
+	}
+	
+	
 	override agregaUsuario(Usuario usuario) {
 		var Connection conn = null;
 		var PreparedStatement ps = null;
@@ -107,28 +129,56 @@ class HomeBBDD implements Home{
 	}
 	
 	override getCodigoDeValidacion(Usuario unUsuario) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		dameAlUsuarioConNombre(unUsuario.usuario).codigoDeValidacion
 	}
 	
-	override noIncluye(Usuario usuario) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
-	override dameAlUsuarioConCodigo(String unCodigoDeValidacion) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
-	override borrarValidacionPara(Usuario unUsuario) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
-	
-	override actualizar(Usuario usuario) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	override noIncluye(Usuario usuario) {	
+		!dameAlUsuario(usuario).estaValidado
+		
 	}
 	
 	override puedeValidarCodigo(String unCodigoDeValidacion) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		dameNombreConCodigoDeValidacion(unCodigoDeValidacion)!=null
 	}
+	
+	override dameAlUsuarioConCodigo(String unCodigoDeValidacion) {
+		dameAlUsuarioConNombre(dameNombreConCodigoDeValidacion(unCodigoDeValidacion))
+	}
+	
+	override borrarValidacionPara(Usuario unUsuario) {
+		var Connection conn = null;
+		var PreparedStatement ps = null;
+		try{
+			conn = this.getConnection();
+			ps = conn.prepareStatement("DELETE FROM Validacion WHERE USUARIO = ?");
+			ps.setString(1, unUsuario.usuario);
+			ps.execute();
+			ps.close();
+		}finally{
+			close(conn,ps)
+		}
+	}
+	
+	override actualizar(Usuario usuario) {
+		borrarUsuario(usuario)
+		agregaUsuario(usuario)
+	}
+	
+	def private borrarUsuario(Usuario usuario) {
+		var Connection conn = null;
+		var PreparedStatement ps = null;
+		try{
+			conn = getConnection();
+			ps = conn.prepareStatement("DELETE FROM Usuario WHERE USUARIO = ?");
+			ps.setString(1, usuario.usuario);
+			ps.execute();
+			ps.close();
+		}finally{
+			close(conn,ps)
+		}
+	}
+	
+	
 	
 	def private Connection getConnection() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");

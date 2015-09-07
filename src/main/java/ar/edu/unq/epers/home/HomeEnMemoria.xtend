@@ -38,9 +38,14 @@ class HomeEnMemoria implements Home{
 		usuario.codigoDeValidacion
 	}
 	
+	override puedeValidarCodigo(String unCodigoDeValidacion) {
+		validaciones.containsValue(unCodigoDeValidacion)
+	}
+	
 	override noIncluye(Usuario usuario) {
 		!validaciones.containsKey(usuario.usuario)
 	}
+	
 	
 	override dameAlUsuarioConCodigo(String unCodigoDeValidacion) {		
 		for (Map.Entry<String,String> entry : validaciones.entrySet()) {
@@ -65,9 +70,7 @@ class HomeEnMemoria implements Home{
 		}	
 	}
 	
-	override puedeValidarCodigo(String unCodigoDeValidacion) {
-		validaciones.containsValue(unCodigoDeValidacion)
-	}
+	
 	
 	override eliminarRegistros() {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")

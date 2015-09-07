@@ -22,8 +22,7 @@ class Sistema {
 	// Registra un Usuario en el sistema.
 	// Si ya existe, lanza una excepcion.
 	{
-		//if (puedoRegistrar(usuario)){
-		if (true){
+		if (puedoRegistrar(usuario)){
 			// Genero un codigo de validacion
 			var nuevoCodigoDeValidacion = validador.generarCodigoDeValidacion
 			
@@ -59,20 +58,23 @@ class Sistema {
 	}
 	
 	def boolean estaValidado(Usuario usuario){
-		usuario.estaValidado && persistorDeUsuarios.noIncluye(usuario)
+		persistorDeUsuarios.dameAlUsuario(usuario).estaValidado
 	}
 	
 	def ingresarUsuario(String unNombreDeUsuario, String unaClaveDeUsuario) throws UsuarioNoExisteException {
 		var usuario = persistorDeUsuarios.dameAlUsuarioConNombre(unNombreDeUsuario)
-		if (usuario == null || !estaValidado(usuario))
+		if (usuario != null && estaValidado(usuario)){
+			usuario.passwordValida(unaClaveDeUsuario)			
+		}
+		else{
 			throw new UsuarioNoExisteException
-		usuario.passwordValida(unaClaveDeUsuario)
-
+		}
 	}
 	
 	def void cambiarPassword(String nombreDeUsuario, String passwordActual, String passwordNueva) throws NuevaPasswordInvalida {
 		var usuario = persistorDeUsuarios.dameAlUsuarioConNombre(nombreDeUsuario)
 		usuario.cambiarPassword(passwordActual, passwordNueva)
+		persistorDeUsuarios.actualizar(usuario)
 	}
 	
 }

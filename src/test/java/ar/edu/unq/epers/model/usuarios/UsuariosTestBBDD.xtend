@@ -13,6 +13,7 @@ import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
 import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
 import ar.edu.unq.epers.home.Home
 import ar.edu.unq.epers.home.HomeBBDD
+import org.junit.After
 
 class UsuariosTestBBDD {
 	
@@ -25,12 +26,15 @@ class UsuariosTestBBDD {
 	def void setUp(){
 		fecha = new DateTime(1980,04,11,0,0)
 		usuario = new Usuario('Alejandro','Kro','ak','123','a@a.com',fecha)
-		
 		persistor = new HomeBBDD()
-		persistor.eliminarRegistros()
 		sistema = new Sistema(persistor)
 		sistema.registrarUsuario(usuario)
 		
+	}
+	
+	@After
+	def void tearDown(){
+		persistor.eliminarRegistros()
 	}
 	
 	@Test
@@ -63,7 +67,10 @@ class UsuariosTestBBDD {
 		
 		var codigoDeValidacion = usuario.codigoDeValidacion
 		sistema.validarCuenta(codigoDeValidacion)
-		assertTrue(sistema.estaValidado(usuario))
+		
+		var usuarioEnSistema = persistor.dameAlUsuario(usuario)
+		
+		assertTrue(usuarioEnSistema.estaValidado)
 		
 	}
 	
@@ -77,7 +84,8 @@ class UsuariosTestBBDD {
 	@Test
 	def ingresoDeUsuarioValidado(){
 		
-		sistema.validarCuenta(usuario.getCodigoDeValidacion())
+		sistema.validarCuenta(usuario.codigoDeValidacion)
+		
 		val usuarioIngresado = sistema.ingresarUsuario(usuario.usuario, '123')
 		
 		assertEquals(usuario, usuarioIngresado)

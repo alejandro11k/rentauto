@@ -31,7 +31,8 @@ import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
 		// Si un password es valida, me retorno a mi mismo.
 		if (password == unaPassword)
 			return this 
-		throw new UsuarioNoExisteException
+		else
+			throw new UsuarioNoExisteException
 	}
 	
 	override equals(Object other)
