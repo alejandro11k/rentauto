@@ -24,7 +24,7 @@ class HomeBBDD implements Home{
 			ps.setString(1, unNombreDeUsuario);
 			var ResultSet rs = ps.executeQuery();
 
-			//while(rs.next()){
+			while(rs.next()){
 				u.nombre = rs.getString("NOMBRE");
 				u.apellido = rs.getString("APELLIDO");
 				u.usuario = rs.getString("USUARIO");
@@ -34,7 +34,7 @@ class HomeBBDD implements Home{
 				u.codigoDeValidacion = rs.getString("CODIGODEVALIDACION");
 				u.estaValidado = rs.getBoolean("ESTAVALIDADO");
 			
-			//}
+			}
 			
 			ps.close();
 		}finally{
@@ -67,7 +67,41 @@ class HomeBBDD implements Home{
 	}
 	
 	override agregarValidacionPendiente(String unNombreDeUsuario, String unCodigoDeValidacion) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		var Connection conn = null;
+		var PreparedStatement ps = null;
+		try{
+			conn = this.getConnection();
+			ps = conn.prepareStatement("INSERT INTO Validacion (USUARIO, CODIGODEVALIDACION) VALUES (?,?)");
+			ps.setString(1, unNombreDeUsuario);
+			ps.setString(2, unCodigoDeValidacion);
+			ps.execute();
+			ps.close();
+		}finally{
+			close(conn,ps)
+		}
+	}
+	
+	override eliminarRegistros() {
+		var Connection conn = null;
+		var PreparedStatement ps = null;
+		try{
+			conn = this.getConnection();
+			ps = conn.prepareStatement("DELETE FROM Validacion");
+			ps.execute();
+			ps.close();
+		}finally{
+			close(conn,ps)
+		}
+		conn = null;
+		ps = null;
+		try{
+			conn = this.getConnection();
+			ps = conn.prepareStatement("DELETE FROM Usuario");
+			ps.execute();
+			ps.close();
+		}finally{
+			close(conn,ps)
+		}
 	}
 	
 	override getCodigoDeValidacion(Usuario unUsuario) {

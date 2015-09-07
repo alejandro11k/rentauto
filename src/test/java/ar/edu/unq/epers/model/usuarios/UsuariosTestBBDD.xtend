@@ -27,6 +27,7 @@ class UsuariosTestBBDD {
 		usuario = new Usuario('Alejandro','Kro','ak','123','a@a.com',fecha)
 		
 		persistor = new HomeBBDD()
+		persistor.eliminarRegistros()
 		sistema = new Sistema(persistor)
 		sistema.registrarUsuario(usuario)
 		

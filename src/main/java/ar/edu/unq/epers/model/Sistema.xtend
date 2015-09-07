@@ -22,7 +22,8 @@ class Sistema {
 	// Registra un Usuario en el sistema.
 	// Si ya existe, lanza una excepcion.
 	{
-		if (puedoRegistrar(usuario)){
+		//if (puedoRegistrar(usuario)){
+		if (true){
 			// Genero un codigo de validacion
 			var nuevoCodigoDeValidacion = validador.generarCodigoDeValidacion
 			

@@ -22,4 +22,8 @@ interface Home {
 	
 	def boolean puedeValidarCodigo(String unCodigoDeValidacion)
 	
+	//solo para bbdd
+	
+	def void eliminarRegistros()
+	
 }

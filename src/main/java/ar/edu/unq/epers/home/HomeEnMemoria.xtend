@@ -69,4 +69,8 @@ class HomeEnMemoria implements Home{
 		validaciones.containsValue(unCodigoDeValidacion)
 	}
 	
+	override eliminarRegistros() {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
 }
