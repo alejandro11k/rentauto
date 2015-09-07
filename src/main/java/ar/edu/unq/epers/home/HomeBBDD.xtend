@@ -1,11 +1,11 @@
 package ar.edu.unq.epers.home
 
 import ar.edu.unq.epers.model.Usuario
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.Connection
+import java.sql.Date
+import java.sql.DriverManager
+import java.sql.PreparedStatement
+import java.sql.ResultSet
 import org.joda.time.DateTime
 
 class HomeBBDD implements Home{
@@ -70,7 +70,7 @@ class HomeBBDD implements Home{
 	override agregaUsuario(Usuario usuario) {
 		var Connection conn = null;
 		var PreparedStatement ps = null;
-		var java.sql.Date nacimiento = new java.sql.Date( usuario.nacimiento.getMillis())
+		var Date nacimiento = new Date( usuario.nacimiento.getMillis())
 		try{
 			conn = this.getConnection();
 			ps = conn.prepareStatement("INSERT INTO Usuario (NOMBRE, APELLIDO, USUARIO, PASSWORD, 

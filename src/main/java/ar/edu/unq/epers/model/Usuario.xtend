@@ -1,9 +1,9 @@
 package ar.edu.unq.epers.model
 
-import org.joda.time.DateTime
-import org.eclipse.xtend.lib.annotations.Accessors
-import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
 import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
+import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.joda.time.DateTime
 
 @Accessors class Usuario {
 	
