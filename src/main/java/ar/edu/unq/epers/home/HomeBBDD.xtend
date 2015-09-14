@@ -160,8 +160,27 @@ class HomeBBDD implements Home{
 	}
 	
 	override actualizar(Usuario usuario) {
-		borrarUsuario(usuario)
-		agregaUsuario(usuario)
+		var Connection conn = null;
+		var PreparedStatement ps = null;
+		var Date nacimiento = new Date( usuario.nacimiento.getMillis())
+		try{
+			conn = this.getConnection();
+			ps = conn.prepareStatement("UPDATE Usuario SET 
+			NOMBRE=?, APELLIDO=?, PASSWORD=?, 
+			MAIL=?, NACIMIENTO=?, ESTAVALIDADO=?
+			WHERE USUARIO = ?");
+			ps.setString(1, usuario.nombre);
+			ps.setString(2, usuario.apellido);
+			ps.setString(3, usuario.password);
+			ps.setString(4, usuario.mail);
+			ps.setDate(5, nacimiento);
+			ps.setBoolean(6, usuario.estaValidado);
+			ps.setString(7, usuario.usuario);
+			ps.execute();
+			ps.close();
+		}finally{
+			close(conn,ps)
+		}
 	}
 	
 	def private borrarUsuario(Usuario usuario) {
