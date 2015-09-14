@@ -18,9 +18,13 @@ class Sistema {
 		this.enviador = enviador
 	}
 	
+	/**
+	 * Registra un Usuario en el Sistema 
+	 * 
+	 * @param usuario El usuario que se quiere registrar
+	 * @throws UsuarioYaExisteException si ya fue registrado
+	 */
 	def registrarUsuario(Usuario usuario) throws UsuarioYaExisteException
-	// Registra un Usuario en el sistema.
-	// Si ya existe, lanza una excepcion.
 	{
 		if (puedoRegistrar(usuario)){
 			// Genero un codigo de validacion
@@ -40,6 +44,11 @@ class Sistema {
 			throw new UsuarioYaExisteException()
 	}
 	
+	/**
+	 * Indica si el usuario ya existe en el sistema
+	 * 
+	 * @param unUsuario el usuario a verificar
+	 */
 	private def puedoRegistrar(Usuario unUsuario) {
 		persistorDeUsuarios.dameAlUsuario(unUsuario) == null
 	}	
@@ -48,6 +57,13 @@ class Sistema {
 		persistorDeUsuarios.getCodigoDeValidacion(usuario)
 	}
 	
+	/**
+	 * Valida un usuario registrado para que este pueda operar
+	 * 
+	 * @param codigoDeValidacion el codigo de validacion unico del usuario
+	 * @throws ValidacionException si el codigo de validacion es invalido o 
+	 * el usuario fue validado
+	 */
 	def validarCuenta(String codigoDeValidacion){
 		if (persistorDeUsuarios.puedeValidarCodigo(codigoDeValidacion)){
 			var usuario = persistorDeUsuarios.dameAlUsuarioConCodigo(codigoDeValidacion)
@@ -64,6 +80,18 @@ class Sistema {
 		persistorDeUsuarios.dameAlUsuario(usuario).estaValidado
 	}
 	
+	/**
+	 * Loguea un usuario en el sistema
+	 * 
+	 * @param unNombreDeUsuario el nombre del usuario a loguear
+	 * @param unaClaveDeUsuario la clave del usuario
+	 * 
+	 * @throws UsuarioNoExisteException 
+	 * si el usuario no existe,
+	 * ingreso un nombre incorrecto,
+	 * ingreso una contraseña incorrecta,
+	 * no fue validado.
+	 */
 	def ingresarUsuario(String unNombreDeUsuario, String unaClaveDeUsuario) throws UsuarioNoExisteException {
 		var usuario = persistorDeUsuarios.dameAlUsuarioConNombre(unNombreDeUsuario)
 		if (usuario != null && estaValidado(usuario)){
