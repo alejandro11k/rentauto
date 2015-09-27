@@ -29,7 +29,7 @@ USE rentauto;
 CREATE TABLE  `rentauto`.`ubicaciones` (
   `U_NOMBRE` varchar(20) NOT NULL,
   PRIMARY KEY (`U_NOMBRE`)
-) 
+);
 
 INSERT INTO jugadores (J_NOMBRE,J_APELLIDO,J_NRO) VALUES ("Juan Carlos","Batman",23);
   `J_ID` int(11) NOT NULL AUTO_INCREMENT,
