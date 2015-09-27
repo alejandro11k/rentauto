@@ -6,6 +6,7 @@ import org.hibernate.Session
 import org.eclipse.xtext.xbase.lib.Functions.Function0
 import org.hibernate.cfg.Configuration
 import org.hibernate.Transaction
+import java.io.File
 
 class SessionManager {
 	
@@ -14,8 +15,12 @@ class SessionManager {
 	
 	def synchronized static SessionFactory getSessionFactory() {
 		if (sessionFactory == null) {
+			
+			var hibernatePropsFilePath = "/home/alejandrok/git/rentauto/resources/hibernate.cfg.xml"
+			var hibernatePropsFile = new File(hibernatePropsFilePath);
+
 			var cfg = new Configuration();
-			cfg.configure()
+			cfg.configure(hibernatePropsFile)
 			sessionFactory = cfg.buildSessionFactory();
 		}
 		sessionFactory;
