@@ -17,4 +17,5 @@ class UbicacionService {
 			new UbicacionHomeHbn().get(id)
 		])
 	}
+	
 }

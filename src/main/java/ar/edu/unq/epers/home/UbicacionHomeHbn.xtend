@@ -6,7 +6,8 @@ class UbicacionHomeHbn {
 	def save(Ubicacion j) {
 		SessionManager.getSession().saveOrUpdate(j)
 	}
-	def get(String id){
-		return SessionManager.getSession().get(typeof(Ubicacion) ,id) as Ubicacion
+	def get(String nombre){
+		return SessionManager.getSession().get(typeof(Ubicacion) ,nombre) as Ubicacion
 	}
+	
 }
