@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="ar.edu.unq.epers.model.Empresa" table="empresas" >
+        
+        <id name="cuit" type="java.lang.String" length="50">
+            <generator class="identity" />
+        </id>
+        
+        <property name="nombreEmpresa" type="java.lang.String" length="20"/>
+        <set name="usuarios" cascade="all">
+			<key column="usuario"/>
+			<one-to-many class="ar.edu.unq.epers.model.Usuario"/> 
+        </set>
+        
+        <set name="reservas">
+        	<key column="NUMERO_SOLICITUD"/>
+        	<one-to-many class="ar.edu.unq.epers.model.Reserva"/>
+        </set>
+        
+    </class>
+</hibernate-mapping>
