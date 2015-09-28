@@ -8,6 +8,7 @@
         <id name="nombre" type="string">
             <column name="U_NOMBRE" length="20" not-null="true" unique="false" />
         </id>
+        
                 
     </class>
 </hibernate-mapping>

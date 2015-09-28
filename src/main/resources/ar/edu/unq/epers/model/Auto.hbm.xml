@@ -23,12 +23,8 @@
             <column name="A_COSTO" not-null="false" unique="false"/>
         </property>
         
-		<property name="categoria" type="string">
-            <column name="A_CATEGORIA" length="20" not-null="true" unique="false" />
-        </property>
-        <property name="ubicacion" type="string">
-            <column name="A_UBICACION" length="20" not-null="true" unique="false" />
-        </property>      
+        <one-to-one name="ubicacion" cascade="all" /> 
+		<one-to-one name="categoria" cascade="all" />     
         
         <bag name="reservas" table="reservas" order-by="numeroSolicitud">
 			<key>
