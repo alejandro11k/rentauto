@@ -13,13 +13,13 @@ import ar.edu.unq.epers.arq.NullObject
 class UbicacionPorFechaTest extends AbstractTest {
 			
 	@Test
-	def ubicacionReservasVacias(){
+	def void ubicacionReservasVacias(){
 		val auto = HomeLocator::instance.autoHome.getPorPatente("XXX123")
 		assertEquals(auto.ubicacionInicial, auto.ubicacion)
 	}
 	
 	@Test
-	def ubicacionUnaReserva(){
+	def void ubicacionUnaReserva(){
 		runner.run([
 			val unAuto = HomeLocator::instance.autoHome.getPorPatente("XXX123")
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
@@ -47,7 +47,7 @@ class UbicacionPorFechaTest extends AbstractTest {
 
 
 	@Test
-	def ubicacionDosReservas(){
+	def void ubicacionDosReservas(){
 		runner.run([
 			val unAuto = HomeLocator::instance.autoHome.getPorPatente("XXX123")
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")

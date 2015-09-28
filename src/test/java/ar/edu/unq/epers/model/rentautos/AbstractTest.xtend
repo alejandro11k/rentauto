@@ -23,18 +23,18 @@ class AbstractTest {
 	
 	public static boolean inMemory = true
 	
-	Runner runner
+	Runner _runner
 	
-	protected def getRunner() {
-		if (runner === null) {
+	protected def Runner getRunner() {
+		if (_runner === null) {
 			if (inMemory) {
-				runner = new DummyRunner()
+				_runner = new DummyRunner()
 			} else {
-				runner = new HibernateRunner()
+				_runner = new HibernateRunner()
 			}
-			runner = new LogRunner(runner)
+			_runner = new LogRunner(_runner)
 		}
-		runner
+		_runner
 	} 
 
 	@Before

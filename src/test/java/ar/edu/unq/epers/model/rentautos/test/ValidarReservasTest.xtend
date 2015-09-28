@@ -12,7 +12,7 @@ import ar.edu.unq.epers.arq.NullObject
 
 class ValidarReservasTest extends AbstractTest {
 	@Test
-	def reservaUnica() {
+	def void reservaUnica() {
 		runner.run([
 			val unAuto = HomeLocator::instance.autoHome.getPorPatente("XXX123")
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
@@ -35,7 +35,7 @@ class ValidarReservasTest extends AbstractTest {
 	}
 
 	@Test
-	def reservaQueNoSePisan() {
+	def void reservaQueNoSePisan() {
 		runner.run([
 			val unAuto = HomeLocator::instance.autoHome.getPorPatente("XXX123")
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
@@ -69,7 +69,7 @@ class ValidarReservasTest extends AbstractTest {
 	}
 
 	@Test(expected=ReservaException)
-	def reservaQueSePisan() {
+	def void reservaQueSePisan() {
 		runner.run([
 			val unAuto = HomeLocator::instance.autoHome.getPorPatente("XXX123")
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
@@ -100,7 +100,7 @@ class ValidarReservasTest extends AbstractTest {
 	}
 
 	@Test(expected=ReservaException)
-	def reservasSinSentido() {
+	def void reservasSinSentido() {
 		runner.run([
 			val unAuto = HomeLocator::instance.autoHome.getPorPatente("XXX123")
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
