@@ -4,8 +4,8 @@ import ar.edu.unq.epers.model.Auto
 
 class AutoHomeHbn {
 	
-	def save(Auto j) {
-		SessionManager.getSession().saveOrUpdate(j)
+	def save(Auto a) {
+		SessionManager.getSession().saveOrUpdate(a)
 	}
 	
 }

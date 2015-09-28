@@ -27,9 +27,22 @@ CREATE SCHEMA rentauto;
 USE rentauto;
 
 CREATE TABLE  `rentauto`.`ubicaciones` (
-  `U_NOMBRE` varchar(20) NOT NULL,
-  PRIMARY KEY (`U_NOMBRE`)
+`U_NOMBRE` varchar(20) NOT NULL,
+PRIMARY KEY (`U_NOMBRE`)
 );
+
+CREATE TABLE  `rentauto`.`autos` (
+`A_PATENTE` varchar(6) NOT NULL,
+`A_MARCA` varchar(20) NOT NULL,
+`A_MODELO` varchar(20) NOT NULL,
+`A_AÑO` int(4),
+`A_COSTOBASE` double,
+`A_CATEGORIA` varchar(20),
+`A_UBICACION` varchar(20),
+PRIMARY KEY (`A_PATENTE`)  
+);
+
+
 
 INSERT INTO jugadores (J_NOMBRE,J_APELLIDO,J_NRO) VALUES ("Juan Carlos","Batman",23);
   `J_ID` int(11) NOT NULL AUTO_INCREMENT,
