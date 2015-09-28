@@ -7,9 +7,6 @@ import java.sql.DriverManager
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import org.joda.time.DateTime
-import java.sql.SQLException
-import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
-import ar.edu.unq.epers.exceptions.MySQLException
 
 class HomeBBDD implements Home{
 	
@@ -42,10 +39,7 @@ class HomeBBDD implements Home{
 			}
 			
 			ps.close();
-		}catch (SQLException e) {
-   			throw new MySQLException("error en dameAlUsuarioConNombre", e);
-		}
-		finally{
+		}finally{
 			close(conn,ps)
 		}
 		u
@@ -66,10 +60,7 @@ class HomeBBDD implements Home{
 			}
 			
 			ps.close();
-		}catch (SQLException e) {
-   			throw new MySQLException("error en dameNombreConCodigoDeValidacion", e);
-		} 
-		finally{
+		}finally{
 			close(conn,ps)
 		}
 		u
@@ -94,10 +85,7 @@ class HomeBBDD implements Home{
 			ps.setBoolean(8, usuario.estaValidado);
 			ps.execute();
 			ps.close();
-		}catch (SQLException e) {
-   			throw new MySQLException("error en agregarUsuario", e);
-		}
-		finally{
+		}finally{
 			close(conn,ps)
 		}
 	}
@@ -112,10 +100,7 @@ class HomeBBDD implements Home{
 			ps.setString(2, unCodigoDeValidacion);
 			ps.execute();
 			ps.close();
-		}catch (SQLException e) {
-   			throw new MySQLException("error en agregarValidacionPendiente", e);
-		}
-		finally{
+		}finally{
 			close(conn,ps)
 		}
 	}
@@ -138,10 +123,7 @@ class HomeBBDD implements Home{
 			ps = conn.prepareStatement("DELETE FROM Usuario");
 			ps.execute();
 			ps.close();
-		}catch (SQLException e) {
-   			throw new MySQLException("error en eliminarRegistros", e);
-		}
-		finally{
+		}finally{
 			close(conn,ps)
 		}
 	}
@@ -172,44 +154,17 @@ class HomeBBDD implements Home{
 			ps.setString(1, unUsuario.usuario);
 			ps.execute();
 			ps.close();
-		}catch (SQLException e) {
-   			throw new MySQLException("error en borrarValidacionPara", e);
-		}
-		finally{
+		}finally{
 			close(conn,ps)
 		}
 	}
 	
 	override actualizar(Usuario usuario) {
-		var Connection conn = null;
-		var PreparedStatement ps = null;
-		var Date nacimiento = new Date( usuario.nacimiento.getMillis())
-		try{
-			conn = this.getConnection();
-			ps = conn.prepareStatement("UPDATE Usuario SET 
-			NOMBRE=?, APELLIDO=?, PASSWORD=?, 
-			MAIL=?, NACIMIENTO=?, ESTAVALIDADO=?
-			WHERE USUARIO = ?");
-			ps.setString(1, usuario.nombre);
-			ps.setString(2, usuario.apellido);
-			ps.setString(3, usuario.password);
-			ps.setString(4, usuario.mail);
-			ps.setDate(5, nacimiento);
-			ps.setBoolean(6, usuario.estaValidado);
-			ps.setString(7, usuario.usuario);
-			ps.execute();
-			ps.close();
-		}catch (SQLException e) {
-   			throw new MySQLException("error en actualizar", e);
-		}
-		finally{
-			close(conn,ps)
-		}
+		borrarUsuario(usuario)
+		agregaUsuario(usuario)
 	}
 	
-	@Deprecated
 	def private borrarUsuario(Usuario usuario) {
-		//el sistema no implementa borrar usuarios por el momento
 		var Connection conn = null;
 		var PreparedStatement ps = null;
 		try{

@@ -4,8 +4,10 @@ import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
 import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
+import java.util.List
 
-@Accessors class Usuario {
+@Accessors 
+class Usuario implements IUsuario{
 	
 	String nombre
 	String apellido
@@ -15,6 +17,7 @@ import org.joda.time.DateTime
 	DateTime nacimiento
 	String codigoDeValidacion
 	boolean estaValidado
+	List<Reserva> reservas = newArrayList
 	
 	new(String nombre, String apellido, String usuario, String password, String mail, DateTime nacimiento)
 	{
@@ -26,6 +29,8 @@ import org.joda.time.DateTime
 		this.nacimiento = nacimiento
 		this.estaValidado = false
 	}
+	
+	new() {}
 	
 	def passwordValida(String unaPassword) throws UsuarioNoExisteException{
 		// Si un password es valida, me retorno a mi mismo.
@@ -49,5 +54,9 @@ import org.joda.time.DateTime
 			password = passwordNueva
 		else
 			throw new NuevaPasswordInvalida
+	}
+	
+	override agregarReserva(Reserva unaReserva) {
+		reservas.add(unaReserva)
 	}
 }
