@@ -16,11 +16,12 @@ class SessionManager {
 	def synchronized static SessionFactory getSessionFactory() {
 		if (sessionFactory == null) {
 			
-			var hibernatePropsFilePath = "/home/alejandrok/git/rentauto/resources/hibernate.cfg.xml"
-			var hibernatePropsFile = new File(hibernatePropsFilePath);
+			//var hibernatePropsFilePath = "/home/alejandrok/git/rentauto/resources/hibernate.cfg.xml"
+			//var hibernatePropsFile = new File(hibernatePropsFilePath);
 
 			var cfg = new Configuration();
-			cfg.configure(hibernatePropsFile)
+			//cfg.configure(hibernatePropsFile)
+			cfg.configure()
 			sessionFactory = cfg.buildSessionFactory();
 		}
 		sessionFactory;
