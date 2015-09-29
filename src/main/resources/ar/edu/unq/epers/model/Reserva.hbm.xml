@@ -7,13 +7,13 @@
         
         <id name="numeroSolicitud">
             <column name="NUMERO_SOLICITUD"/>
-            <generator class="sequence" />
+            <generator class="identity" />
         </id>
         
-        <property type="ar.edu.unq.epers.model.Ubicacion" name="origen"/>
-        <property type="ar.edu.unq.epers.model.Ubicacion" name="destino"/>
-        <property type="ar.edu.unq.epers.model.Usuario" name="usuario"/>
-        <property type="ar.edu.unq.epers.model.Auto" name="auto"/>
+        <many-to-one class="ar.edu.unq.epers.model.Ubicacion" name="origen"/>
+        <many-to-one class="ar.edu.unq.epers.model.Ubicacion" name="destino"/>
+        <many-to-one class="ar.edu.unq.epers.model.Usuario" name="usuario"/>
+        <many-to-one class="ar.edu.unq.epers.model.Auto" name="auto"/>
         <property name="inicio"/>
         <property name="fin"/>
         

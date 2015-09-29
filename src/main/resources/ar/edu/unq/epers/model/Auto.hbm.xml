@@ -23,8 +23,8 @@
             <column name="A_COSTOBASE" not-null="false" unique="false"/>
         </property>
         
-        <many-to-one name="categoria" column="C_NOMBRE" not-null="true"/>   
-        <many-to-one name="ubicacion" column="U_NOMBRE" not-null="true"/>
+        <many-to-one name="categoria" column="C_NOMBRE" not-null="true" cascade="save-update"/>   
+        <many-to-one name="ubicacionInicial" column="U_NOMBRE" not-null="true"/>
         
         <bag name="reservas" cascade="all" order-by="INICIO">
         	<key column="NUMERO_SOLICITUD"/>

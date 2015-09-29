@@ -7,7 +7,9 @@ import ar.edu.unq.epers.model.Auto
 class AutoHbmHome extends AutoHome {
 	
 	override getPorPatente(String patente) {
-		HibernateRunner::currentSession().get(typeof(Auto) ,patente) as Auto
+		val q = HibernateRunner::currentSession().createQuery("from Auto as auto where auto.patente = :unvalor");
+		q.setString("unvalor", patente)
+		return q.uniqueResult() as Auto
 	}
 	
 	override save(Auto unAuto) {
