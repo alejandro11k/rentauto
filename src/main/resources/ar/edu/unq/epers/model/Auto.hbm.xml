@@ -1,35 +1,25 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
- 
+
 <hibernate-mapping>
-    <class name="ar.edu.unq.epers.model.Auto" table="autos" >
-        
-        <id name="patente" type="java.lang.String" length="6">
-            <column name="A_PATENTE" />
-            <generator class="assigned" />
-        </id>
+	<class name="ar.edu.unq.epers.model.Auto" table="autos">
 
-        <property name="marca" type="string">
-            <column name="A_MARCA" length="20" not-null="true" unique="false" />
-        </property>
-        <property name="modelo" type="string">
-            <column name="A_MODELO" length="20" not-null="true" unique="false" />
-        </property>
-        <property name="año" type="int">
-            <column name="A_AÑO" not-null="false" unique="false"/>
-        </property>
-        <property name="costoBase" type="double">
-            <column name="A_COSTOBASE" not-null="false" unique="false"/>
-        </property>
-        
-        <many-to-one name="categoria" column="C_NOMBRE" not-null="true" cascade="save-update"/>   
-        <many-to-one name="ubicacionInicial" column="U_NOMBRE" not-null="true"/>
-        
-        <bag name="reservas" cascade="all" order-by="INICIO">
-        	<key column="NUMERO_SOLICITUD"/>
-        	<one-to-many class="ar.edu.unq.epers.model.Reserva"/>
-        </bag>   
+		<id name="patente" length="6">
+			<generator class="assigned" />
+		</id>
 
-    </class>
+		<property name="marca" type="string" />
+		<property name="modelo" type="string" length="20" />
+		<property name="año" />
+		<property name="costoBase" />
+		<many-to-one name="categoria" cascade="save-update" />
+		<many-to-one name="ubicacionInicial" not-null="true" />
+
+		<bag name="reservas" cascade="all" order-by="inicio">
+			<key column="numeroSolicitud" />
+			<one-to-many class="ar.edu.unq.epers.model.Reserva" />
+		</bag>
+
+	</class>
 </hibernate-mapping>

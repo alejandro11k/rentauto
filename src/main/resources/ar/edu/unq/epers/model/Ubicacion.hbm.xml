@@ -1,24 +1,23 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
- 
+
 <hibernate-mapping>
-    <class name="ar.edu.unq.epers.model.Ubicacion" table="ubicacion" >
-        
-        <id name="nombre" type="java.lang.String" length="10">
-            <column name="U_NOMBRE" />
-            <generator class="assigned" />
-        </id>
-        <discriminator column="TIPO" type="string"/>
-        
-      <subclass name="ar.edu.unq.epers.model.UbicacionVirtual" discriminator-value="V">
-      		
-      		<set name="ubicaciones">
-      			<key column="U_NOMBRE"/>
-      			<many-to-many class="ar.edu.unq.epers.model.Ubicacion"/>
-      		</set>
-      
-      </subclass>
-      
-    </class>
+	<class name="ar.edu.unq.epers.model.Ubicacion" table="ubicaciones">
+
+		<id name="nombre" length="10">
+			<generator class="assigned" />
+		</id>
+		<discriminator column="tipo" type="string" />
+
+		<subclass name="ar.edu.unq.epers.model.UbicacionVirtual"
+			discriminator-value="V">
+			<set name="ubicaciones">
+				<key column="nombre" />
+				<many-to-many class="ar.edu.unq.epers.model.Ubicacion" />
+			</set>
+
+		</subclass>
+
+	</class>
 </hibernate-mapping>
