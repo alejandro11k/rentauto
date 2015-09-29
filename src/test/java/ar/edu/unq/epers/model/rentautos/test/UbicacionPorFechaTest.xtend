@@ -1,14 +1,13 @@
 package ar.edu.unq.epers.model.rentautos.test
 
-import ar.edu.unq.epers.model.rentautos.AbstractTest
-
+import ar.edu.unq.epers.arq.NullObject
+import ar.edu.unq.epers.arq.homeLocator.HomeLocator
 import ar.edu.unq.epers.model.Reserva
+import ar.edu.unq.epers.model.rentautos.AbstractTest
 import org.junit.Test
 
 import static ar.edu.unq.epers.extensions.DateExtensions.*
 import static org.junit.Assert.*
-import ar.edu.unq.epers.arq.homeLocator.HomeLocator
-import ar.edu.unq.epers.arq.NullObject
 
 class UbicacionPorFechaTest extends AbstractTest {
 			

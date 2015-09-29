@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="ar.edu.unq.epers.model.Usuario" table="usuarios">
+        
+        <id name="usuario" length="20">
+            <generator class="assigned" />
+        </id>
+        
+        <property name="apellido"/>
+        <property name="nombre"/>
+        <property name="mail"/>
+        <property name="password"/>
+        <property name="codigoDeValidacion"/>
+        <property name="estaValidado"/>
+        <property type="org.joda.time.contrib.hibernate.PersistentDateTime" name="nacimiento"/>
+        
+        <set name="reservas">
+        	<key column="NUMERO_SOLICITUD"/>
+        	<one-to-many class="ar.edu.unq.epers.model.Reserva"/>
+        </set>
+    </class>
+</hibernate-mapping>

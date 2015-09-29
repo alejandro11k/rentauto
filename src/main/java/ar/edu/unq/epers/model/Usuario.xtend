@@ -2,9 +2,9 @@ package ar.edu.unq.epers.model
 
 import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
 import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
+import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
-import java.util.List
 
 @Accessors 
 class Usuario implements IUsuario{

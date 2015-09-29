@@ -8,6 +8,8 @@ import org.junit.BeforeClass
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 
+import static ar.edu.unq.epers.model.rentautos.AbstractTest.*
+
 @RunWith(Suite) 
 @Suite.SuiteClasses(#[
 	CalculoDePrecioTest,

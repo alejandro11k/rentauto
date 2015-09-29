@@ -1,15 +1,14 @@
 package ar.edu.unq.epers.model.rentautos.test
 
-import ar.edu.unq.epers.model.rentautos.AbstractTest
+import ar.edu.unq.epers.arq.NullObject
+import ar.edu.unq.epers.arq.homeLocator.HomeLocator
 import ar.edu.unq.epers.model.ReservaEmpresarial
 import ar.edu.unq.epers.model.ReservaException
+import ar.edu.unq.epers.model.rentautos.AbstractTest
 import org.junit.Test
 
 import static ar.edu.unq.epers.extensions.DateExtensions.*
 import static org.junit.Assert.*
-import ar.edu.unq.epers.services.EmpresaService
-import ar.edu.unq.epers.arq.homeLocator.HomeLocator
-import ar.edu.unq.epers.arq.NullObject
 
 class EmpresaTest extends AbstractTest{
 		

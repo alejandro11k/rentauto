@@ -1,8 +1,8 @@
 package ar.edu.unq.epers.home.hbm
 
+import ar.edu.unq.epers.arq.runner.HibernateRunner
 import ar.edu.unq.epers.home.UbicacionHome
 import ar.edu.unq.epers.model.Ubicacion
-import ar.edu.unq.epers.arq.runner.HibernateRunner
 
 class UbicacionHbmHome extends UbicacionHome {
 	

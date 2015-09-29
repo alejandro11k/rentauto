@@ -6,10 +6,10 @@ import org.hibernate.SessionFactory
 import org.hibernate.cfg.Configuration
 
 /**
- * Executa un ServiceCommand en el contexto de una sessi�n / transacci�n
+ * Executa un ServiceCommand en el contexto de una session / transaccion
  * de hibernate. 
  * 
- * Se encarga de liberar los recursos y comitear / rollbackear la transacci�n
+ * Se encarga de liberar los recursos y comitear / rollbackear la transaccion
  * luego de que el commando haya sido ejecutado
  */
 class HibernateRunner implements Runner {

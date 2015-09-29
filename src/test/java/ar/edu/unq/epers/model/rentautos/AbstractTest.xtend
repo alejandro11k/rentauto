@@ -1,23 +1,19 @@
 package ar.edu.unq.epers.model.rentautos
 
-import org.junit.Before
-
-import static org.mockito.Mockito.*
-import static ar.edu.unq.epers.extensions.DateExtensions.*
-import ar.edu.unq.epers.model.IUsuario
-import ar.edu.unq.epers.arq.runner.Runner
+import ar.edu.unq.epers.arq.homeLocator.HibernateHomeLocator
+import ar.edu.unq.epers.arq.homeLocator.HomeLocator
+import ar.edu.unq.epers.arq.homeLocator.MemoryHomeLocator
 import ar.edu.unq.epers.arq.runner.DummyRunner
 import ar.edu.unq.epers.arq.runner.HibernateRunner
 import ar.edu.unq.epers.arq.runner.LogRunner
-import ar.edu.unq.epers.model.Empresa
+import ar.edu.unq.epers.arq.runner.Runner
 import ar.edu.unq.epers.model.Auto
-import ar.edu.unq.epers.model.Ubicacion
+import ar.edu.unq.epers.model.Empresa
 import ar.edu.unq.epers.model.Familiar
-import ar.edu.unq.epers.arq.homeLocator.HomeLocator
-import ar.edu.unq.epers.arq.homeLocator.HibernateHomeLocator
-import ar.edu.unq.epers.arq.homeLocator.MemoryHomeLocator
+import ar.edu.unq.epers.model.Ubicacion
 import ar.edu.unq.epers.model.Usuario
 import org.joda.time.DateTime
+import org.junit.Before
 
 class AbstractTest {
 	

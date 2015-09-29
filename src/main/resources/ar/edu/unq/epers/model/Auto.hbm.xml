@@ -7,7 +7,7 @@
         
         <id name="patente" type="java.lang.String" length="6">
             <column name="A_PATENTE" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
 
         <property name="marca" type="string">

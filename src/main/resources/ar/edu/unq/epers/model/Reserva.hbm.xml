@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="ar.edu.unq.epers.model.Reserva" table="reservas" >
+        
+        <id name="numeroSolicitud">
+            <column name="NUMERO_SOLICITUD"/>
+            <generator class="sequence" />
+        </id>
+        
+        <property type="ar.edu.unq.epers.model.Ubicacion" name="origen"/>
+        <property type="ar.edu.unq.epers.model.Ubicacion" name="destino"/>
+        <property type="ar.edu.unq.epers.model.Usuario" name="usuario"/>
+        <property type="ar.edu.unq.epers.model.Auto" name="auto"/>
+        <property name="inicio"/>
+        <property name="fin"/>
+        
+    </class>
+</hibernate-mapping>
