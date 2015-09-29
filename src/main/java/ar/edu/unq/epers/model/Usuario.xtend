@@ -2,9 +2,9 @@ package ar.edu.unq.epers.model
 
 import ar.edu.unq.epers.exceptions.NuevaPasswordInvalida
 import ar.edu.unq.epers.exceptions.UsuarioNoExisteException
-import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.joda.time.DateTime
+import java.util.List
 
 @Accessors 
 class Usuario implements IUsuario{
@@ -17,7 +17,7 @@ class Usuario implements IUsuario{
 	DateTime nacimiento
 	String codigoDeValidacion
 	boolean estaValidado
-	List<Reserva> reservas = newArrayList
+	List<Reserva> reservas
 	
 	new(String nombre, String apellido, String usuario, String password, String mail, DateTime nacimiento)
 	{
@@ -28,9 +28,10 @@ class Usuario implements IUsuario{
 		this.mail = mail
 		this.nacimiento = nacimiento
 		this.estaValidado = false
+		reservas = newArrayList
 	}
 	
-	new() {}
+	new() {reservas = newArrayList}
 	
 	def passwordValida(String unaPassword) throws UsuarioNoExisteException{
 		// Si un password es valida, me retorno a mi mismo.
