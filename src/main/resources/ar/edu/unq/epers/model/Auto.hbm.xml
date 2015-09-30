@@ -18,7 +18,7 @@
 
 		<bag name="reservas" cascade="all" order-by="inicio">
 			<key column="numeroSolicitud" />
-			<one-to-many class="ar.edu.unq.epers.model.Reserva" />
+			<many-to-many class="ar.edu.unq.epers.model.Reserva" />
 		</bag>
 
 	</class>
