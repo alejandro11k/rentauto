@@ -12,9 +12,9 @@
 
 		<subclass name="ar.edu.unq.epers.model.UbicacionVirtual"
 			discriminator-value="V">
-			<set name="ubicaciones">
+			<set name="ubicaciones" cascade="save-update" inverse="true">
 				<key column="nombre" />
-				<many-to-many class="ar.edu.unq.epers.model.Ubicacion" />
+				<one-to-many class="ar.edu.unq.epers.model.Ubicacion" />
 			</set>
 
 		</subclass>

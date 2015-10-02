@@ -9,11 +9,13 @@
 			<generator class="identity" />
 		</id>
 		<many-to-one class="ar.edu.unq.epers.model.Ubicacion"
-			name="origen" />
+			name="origen"/>
 		<many-to-one class="ar.edu.unq.epers.model.Ubicacion"
-			name="destino" />
-		<many-to-one class="ar.edu.unq.epers.model.Usuario" name="usuario" />
-		<many-to-one class="ar.edu.unq.epers.model.Auto" name="auto" />
+			name="destino"/>
+		<many-to-one class="ar.edu.unq.epers.model.Usuario" 
+			name="usuario" column="usuario" />
+		<many-to-one class="ar.edu.unq.epers.model.Auto" 
+			name="auto" column="patente" />
 		<property name="inicio" />
 		<property name="fin" />
 	</class>

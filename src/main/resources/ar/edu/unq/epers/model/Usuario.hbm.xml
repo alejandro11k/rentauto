@@ -17,11 +17,11 @@
 		<property name="estaValidado" />
 		<property type="org.joda.time.contrib.hibernate.PersistentDateTime"
 			name="nacimiento" />
-
-		<list name="reservas" inverse="false" cascade="all">
+		
+		<bag name="reservas" cascade="save-update" inverse="true">
 			<key column="numeroSolicitud" />
-			<list-index column="idx" />
-			<many-to-many class="ar.edu.unq.epers.model.Reserva"></many-to-many>
-		</list>
+			<one-to-many class="ar.edu.unq.epers.model.Reserva" />
+		</bag>
+		
 	</class>
 </hibernate-mapping>
