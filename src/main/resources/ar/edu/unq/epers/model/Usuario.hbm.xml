@@ -19,7 +19,7 @@
 			name="nacimiento" />
 		
 		<bag name="reservas" cascade="save-update" inverse="true">
-			<key column="numeroSolicitud" />
+			<key column="usuario" />
 			<one-to-many class="ar.edu.unq.epers.model.Reserva" />
 		</bag>
 		
