@@ -14,5 +14,14 @@ abstract class RunnerDecorator implements Runner {
 	override <T> T run(ServiceCommand<T> command) {
 		return inner.run(command)
 	}
+	
+	override run(Runnable s) {
+		inner.run(s)
+	}
+		
+	override resetSessionFactory() {
+		inner.resetSessionFactory();
+		//throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
 
 }

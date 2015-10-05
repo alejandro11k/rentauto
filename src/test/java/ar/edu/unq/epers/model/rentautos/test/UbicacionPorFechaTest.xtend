@@ -1,6 +1,5 @@
 package ar.edu.unq.epers.model.rentautos.test
 
-import ar.edu.unq.epers.arq.NullObject
 import ar.edu.unq.epers.arq.homeLocator.HomeLocator
 import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.rentautos.AbstractTest
@@ -13,8 +12,10 @@ class UbicacionPorFechaTest extends AbstractTest {
 			
 	@Test
 	def void ubicacionReservasVacias(){
+		runner.run([
 		val auto = HomeLocator::instance.autoHome.getPorPatente("XXX123")
 		assertEquals(auto.ubicacionInicial, auto.ubicacion)
+		])
 	}
 	
 	@Test
@@ -40,7 +41,6 @@ class UbicacionPorFechaTest extends AbstractTest {
 			
 			assertEquals(aeroparque, unAuto.ubicacionParaDia(nuevaFecha(2015,03,05)))
 			assertEquals(aeroparque, unAuto.ubicacionParaDia(nuevaFecha(2015,03,06)))
-			NullObject.NULL
 		])
 	}
 
@@ -83,7 +83,6 @@ class UbicacionPorFechaTest extends AbstractTest {
 			assertEquals(aeroparque, unAuto.ubicacionParaDia(nuevaFecha(2015,03,9)))
 			assertEquals(retiro, unAuto.ubicacionParaDia(nuevaFecha(2015,03,11)))
 			assertEquals(retiro, unAuto.ubicacionParaDia(nuevaFecha(2015,03,11)))
-			NullObject.NULL
 		])
 	}
 	

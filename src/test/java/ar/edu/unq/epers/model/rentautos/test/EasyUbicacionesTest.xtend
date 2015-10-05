@@ -1,12 +1,11 @@
 package ar.edu.unq.epers.model.rentautos.test
 
 import ar.edu.unq.epers.arq.homeLocator.HomeLocator
+import ar.edu.unq.epers.model.Ubicacion
+import ar.edu.unq.epers.model.rentautos.AbstractTestEmpty
 import org.junit.Test
 
 import static org.junit.Assert.*
-import ar.edu.unq.epers.model.rentautos.AbstractTestEmpty
-import ar.edu.unq.epers.model.Ubicacion
-import ar.edu.unq.epers.arq.NullObject
 
 class EasyUbicacionesTest extends AbstractTestEmpty{
 		
@@ -15,10 +14,7 @@ class EasyUbicacionesTest extends AbstractTestEmpty{
 		runner.run([
 		var origen = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
 		var destino = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
-		assertEquals(origen,destino)
-		
-		assertTrue(true)
-		NullObject.NULL	
+		assertEquals(origen.nombre,destino.nombre)
 		])
 	}
 	

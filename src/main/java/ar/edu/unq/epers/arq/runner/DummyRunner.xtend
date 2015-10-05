@@ -10,5 +10,14 @@ class DummyRunner implements Runner {
 	override <T> run(ServiceCommand<T> command) {
 		command.call()
 	}
+	
+	override run(Runnable command) {
+		command.run
+	}
+	
+	override resetSessionFactory(){
+		
+	}
+	
 
 }

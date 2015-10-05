@@ -1,6 +1,5 @@
 package ar.edu.unq.epers.model.rentautos.test
 
-import ar.edu.unq.epers.arq.NullObject
 import ar.edu.unq.epers.arq.homeLocator.HomeLocator
 import ar.edu.unq.epers.model.ReservaEmpresarial
 import ar.edu.unq.epers.model.ReservaException
@@ -28,7 +27,6 @@ class EmpresaTest extends AbstractTest{
 				reservar()
 			]
 			assertEquals(1, unaEmpresa.reservas.size)
-			NullObject.NULL
 		])
 	}
 
@@ -46,7 +44,6 @@ class EmpresaTest extends AbstractTest{
 				reservar()
 			]
 			fail()
-			NullObject.NULL
 		])
 	}
 

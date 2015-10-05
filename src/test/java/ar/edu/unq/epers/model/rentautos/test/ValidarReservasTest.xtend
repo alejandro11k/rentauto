@@ -1,6 +1,5 @@
 package ar.edu.unq.epers.model.rentautos.test
 
-import ar.edu.unq.epers.arq.NullObject
 import ar.edu.unq.epers.arq.homeLocator.HomeLocator
 import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.ReservaException
@@ -29,8 +28,6 @@ class ValidarReservasTest extends AbstractTest {
 			]
 			
 			assertEquals(1, unAuto.reservas.size)
-			
-			NullObject.NULL
 		])
 	}
 
@@ -63,8 +60,6 @@ class ValidarReservasTest extends AbstractTest {
 			]
 	
 			assertEquals(2, unAuto.reservas.size)
-		
-			NullObject.NULL
 		])
 	}
 
@@ -94,8 +89,6 @@ class ValidarReservasTest extends AbstractTest {
 				])
 	
 			fail()
-			
-			NullObject.NULL
 		])
 	}
 
@@ -124,7 +117,6 @@ class ValidarReservasTest extends AbstractTest {
 				])
 	
 			fail()
-			NullObject.NULL
 		])
 	}
 

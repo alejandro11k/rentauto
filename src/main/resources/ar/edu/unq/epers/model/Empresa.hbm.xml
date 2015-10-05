@@ -19,12 +19,12 @@
 		</set>
 
 		<set name="usuarios">
-			<key column="usuario" />
+			<key column="cuit" />
 			<one-to-many class="ar.edu.unq.epers.model.Usuario" />
 		</set>
 
 		<set name="reservas">
-			<key column="numeroSolicitud" />
+			<key column="ciut" />
 			<many-to-many class="ar.edu.unq.epers.model.Reserva" />
 		</set>
 

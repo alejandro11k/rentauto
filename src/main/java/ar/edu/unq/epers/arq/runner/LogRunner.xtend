@@ -23,5 +23,7 @@ class LogRunner extends RunnerDecorator {
 		}
 
 	}
+	
+	
 
 }

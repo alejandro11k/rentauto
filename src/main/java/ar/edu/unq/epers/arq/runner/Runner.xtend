@@ -8,5 +8,7 @@ import ar.edu.unq.epers.arq.ServiceCommand
 interface Runner {
 	
 	def <T> T run(ServiceCommand<T> s)
+	def void run(Runnable s)
+	def void resetSessionFactory()
 
 }

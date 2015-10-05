@@ -2,7 +2,6 @@ package ar.edu.unq.epers.model.rentautos
 
 import ar.edu.unq.epers.arq.homeLocator.HibernateHomeLocator
 import ar.edu.unq.epers.arq.homeLocator.HomeLocator
-import ar.edu.unq.epers.arq.homeLocator.MemoryHomeLocator
 import ar.edu.unq.epers.arq.runner.DummyRunner
 import ar.edu.unq.epers.arq.runner.HibernateRunner
 import ar.edu.unq.epers.arq.runner.LogRunner
@@ -13,6 +12,7 @@ import ar.edu.unq.epers.model.Familiar
 import ar.edu.unq.epers.model.Ubicacion
 import ar.edu.unq.epers.model.Usuario
 import org.joda.time.DateTime
+import org.junit.After
 import org.junit.Before
 
 class AbstractTest {
@@ -32,7 +32,12 @@ class AbstractTest {
 		}
 		_runner
 	} 
-
+	
+	@After
+	def limpiar() {
+	    runner.resetSessionFactory()
+	}
+	
 	@Before
 	def prepare() {
 		if (inMemory) {

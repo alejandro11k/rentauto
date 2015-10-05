@@ -4,6 +4,7 @@ import ar.edu.unq.epers.arq.ServiceCommand
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.cfg.Configuration
+import ar.edu.unq.epers.arq.NullObject
 
 /**
  * Executa un ServiceCommand en el contexto de una session / transaccion
@@ -15,11 +16,19 @@ import org.hibernate.cfg.Configuration
 class HibernateRunner implements Runner {
 	static SessionFactory SESSION_FACTORY = HibernateRunner::initFactory()
 	static ThreadLocal<Session> CURRENT_SESSION = new ThreadLocal<Session>()
+	
+	override void run(Runnable command) {
+		run[
+			command.run
+			NullObject.NULL
+		]
+	}
 
 	override <T> run(ServiceCommand<T> command) {
 		var Session session = null
 		var T result
 		try {
+			
 			session = SESSION_FACTORY.openSession()
 			session.beginTransaction()
 			CURRENT_SESSION.set(session)
@@ -43,6 +52,7 @@ class HibernateRunner implements Runner {
 		}
 	}
 
+
 	def private static initFactory() {
 		val cfg = new Configuration()
 		cfg.configure()
@@ -56,6 +66,13 @@ class HibernateRunner implements Runner {
 								Esto solamente puede llamarse en el contexto de un runner")
 		}
 		session
+	}
+	
+	override resetSessionFactory() {
+		if (SESSION_FACTORY != null) {
+            SESSION_FACTORY.close();
+            SESSION_FACTORY = HibernateRunner::initFactory();
+        }
 	}
 
 }
