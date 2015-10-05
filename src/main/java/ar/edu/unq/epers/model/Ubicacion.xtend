@@ -7,6 +7,9 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class Ubicacion {
 	String nombre
 	
+	// lo pide hibernate?
+	new(){}
+	
 	new(String nombre){
 		this.nombre = nombre
 	}
