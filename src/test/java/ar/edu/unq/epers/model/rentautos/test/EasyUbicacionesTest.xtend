@@ -26,7 +26,6 @@ class EasyUbicacionesTest extends AbstractTestEmpty{
 		{
 		runner.run([
 			val ubicacionHome = HomeLocator::instance.ubicacionHome
-			
 			val retiro = new Ubicacion("Retiro")
 			val aeroparque = new Ubicacion("Aeroparque")
 			

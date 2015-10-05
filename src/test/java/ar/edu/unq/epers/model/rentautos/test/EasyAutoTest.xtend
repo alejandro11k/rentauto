@@ -9,25 +9,31 @@ import ar.edu.unq.epers.model.Ubicacion
 import ar.edu.unq.epers.model.Auto
 import ar.edu.unq.epers.model.Categoria
 import ar.edu.unq.epers.model.Familiar
+import ar.edu.unq.epers.arq.NullObject
 
 class EasyAutoTest extends AbstractTestEmpty{
 		
 	@Test
-	def auto(){
-		var origen = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
-		var destino = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
-		assertEquals(origen,destino)
-		
-		assertTrue(true)
+	def void auto(){
+		runner.run([
+		val unAuto = HomeLocator::instance.autoHome.getPorPatente("XXX123")
+		assertEquals(unAuto,unAuto)
+		NullObject.NULL	
+		])
 	}
 	
 	override fillMocks() {
 		{
 		runner.run([
-			val empresaHome = HomeLocator::instance.empresaHome
 			val autoHome = HomeLocator::instance.autoHome
-			val ubicacionHome = HomeLocator::instance.ubicacionHome
 			val usuarioHome = HomeLocator::instance.usuarioHome
+			
+			val categoriaHome = HomeLocator::instance.categoriaHome
+			val Categoria familiar = new Familiar()
+			
+			val ubicacionHome = HomeLocator::instance.ubicacionHome
+			val retiro = new Ubicacion("Retiro")
+			ubicacionHome.save(retiro)
 			
 			val auto = new Auto => [
 				marca = "Peugeot"
@@ -35,8 +41,8 @@ class EasyAutoTest extends AbstractTestEmpty{
 				año = 1990
 				patente = "XXX123"
 				costoBase = 100D
-				categoria = new Familiar()
-				ubicacionInicial = new Ubicacion("Retiro")
+				categoria = familiar
+				ubicacionInicial = retiro
 			]
 			
 			autoHome.save(auto)
