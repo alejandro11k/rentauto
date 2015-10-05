@@ -4,6 +4,7 @@ import ar.edu.unq.epers.home.AutoHome
 import ar.edu.unq.epers.home.EmpresaHome
 import ar.edu.unq.epers.home.UbicacionHome
 import ar.edu.unq.epers.home.UsuarioHome
+import ar.edu.unq.epers.home.CategoriaHome
 
 abstract class HomeLocator {
 
@@ -21,5 +22,7 @@ abstract class HomeLocator {
 	def abstract UbicacionHome getUbicacionHome()
 	
 	def abstract UsuarioHome getUsuarioHome()
+	
+	def abstract CategoriaHome getCategoriaHome()
 	
 }

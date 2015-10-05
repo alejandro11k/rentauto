@@ -6,14 +6,19 @@ import org.junit.Test
 import static org.junit.Assert.*
 import ar.edu.unq.epers.model.rentautos.AbstractTestEmpty
 import ar.edu.unq.epers.model.Ubicacion
+import ar.edu.unq.epers.model.Categoria
+import ar.edu.unq.epers.model.Familiar
+import ar.edu.unq.epers.model.Turismo
+import ar.edu.unq.epers.model.Deportivo
+import ar.edu.unq.epers.model.TodoTerreno
 
 class EasyCategoriaTest extends AbstractTestEmpty{
 		
 	@Test
-	def ubicaciones(){
-		var origen = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
-		var destino = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
-		assertEquals(origen,destino)
+	def categorias(){
+		var fam = HomeLocator::instance.ubicacionHome.getPorNombre("Familiar")
+		var fam2 = HomeLocator::instance.ubicacionHome.getPorNombre("Familiar")
+		assertEquals(fam2,fam)
 		
 		assertTrue(true)
 	}
@@ -21,17 +26,18 @@ class EasyCategoriaTest extends AbstractTestEmpty{
 	override fillMocks() {
 		{
 		runner.run([
-			val empresaHome = HomeLocator::instance.empresaHome
-			val autoHome = HomeLocator::instance.autoHome
-			val ubicacionHome = HomeLocator::instance.ubicacionHome
-			val usuarioHome = HomeLocator::instance.usuarioHome
+			val categoriaHome = HomeLocator::instance.categoriaHome
 			
-			val retiro = new Ubicacion("Retiro")
-			val aeroparque = new Ubicacion("Aeroparque")
+			val Categoria familiar = new Familiar()
+			val Categoria turismo = new Turismo()
+			val Categoria deportivo = new Deportivo()
+			val Categoria todoTerreno = new TodoTerreno()
 			
-			ubicacionHome => [
-				save(retiro)
-				save(aeroparque)
+			categoriaHome => [
+				save(familiar)
+				save(turismo)
+				save(deportivo)
+				save(todoTerreno)
 			]
 		])
 	}

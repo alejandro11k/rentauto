@@ -7,8 +7,10 @@ import ar.edu.unq.epers.home.memory.UsuarioMemoryHome
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class MemoryHomeLocator extends HomeLocator {
-	
+//linea comentada para no actualizar los memoryHomes!
+//class MemoryHomeLocator extends HomeLocator {
+	class MemoryHomeLocator {
+		
 	EmpresaMemoryHome empresaHome = new EmpresaMemoryHome
 	AutoMemoryHome autoHome = new AutoMemoryHome
 	UbicacionMemoryHome ubicacionHome = new UbicacionMemoryHome

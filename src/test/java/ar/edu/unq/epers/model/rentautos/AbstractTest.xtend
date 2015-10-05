@@ -36,7 +36,7 @@ class AbstractTest {
 	@Before
 	def prepare() {
 		if (inMemory) {
-			HomeLocator::setInstance(new MemoryHomeLocator())
+			//HomeLocator::setInstance(new MemoryHomeLocator())
 		} else {
 			HomeLocator::setInstance(new HibernateHomeLocator())
 		}
