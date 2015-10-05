@@ -14,7 +14,7 @@
 		<property name="año" />
 		<property name="costoBase" />
 		<many-to-one name="categoria" cascade="save-update" />
-		<many-to-one name="ubicacionInicial" not-null="true" />
+		<many-to-one name="ubicacionInicial" not-null="true" cascade="save-update"/>
 
 		<bag name="reservas" cascade="save-update" inverse="true">
 			<key column="auto" />
