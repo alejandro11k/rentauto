@@ -15,13 +15,13 @@ import ar.edu.unq.epers.model.Usuario
 import org.joda.time.DateTime
 import org.junit.Before
 
-class AbstractTestEmpty {
+abstract class AbstractTestEmpty {
 	
 	public static boolean inMemory = false
 	
 	Runner _runner
 	
-	protected def Runner getRunner() {
+	public def Runner getRunner() {
 		if (_runner === null) {
 			if (inMemory) {
 				_runner = new DummyRunner()
@@ -43,14 +43,6 @@ class AbstractTestEmpty {
 		fillMocks()
 	}
 	
-	def private void fillMocks(){
-		runner.run([
-			val empresaHome = HomeLocator::instance.empresaHome
-			val autoHome = HomeLocator::instance.autoHome
-			val ubicacionHome = HomeLocator::instance.ubicacionHome
-			val usuarioHome = HomeLocator::instance.usuarioHome
-			
-			null
-		])
-	}
+	def public void fillMocks()
+	
 }
