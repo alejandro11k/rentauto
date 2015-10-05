@@ -5,23 +5,25 @@ import org.junit.Test
 
 import static org.junit.Assert.*
 import ar.edu.unq.epers.model.rentautos.AbstractTestEmpty
-import ar.edu.unq.epers.model.Ubicacion
 import ar.edu.unq.epers.model.Categoria
 import ar.edu.unq.epers.model.Familiar
 import ar.edu.unq.epers.model.Turismo
 import ar.edu.unq.epers.model.Deportivo
 import ar.edu.unq.epers.model.TodoTerreno
+import ar.edu.unq.epers.arq.NullObject
 
 class EasyCategoriaTest extends AbstractTestEmpty{
 		
 	@Test
-	def categorias(){
-		var fam = HomeLocator::instance.ubicacionHome.getPorNombre("Familiar")
-		var fam2 = HomeLocator::instance.ubicacionHome.getPorNombre("Familiar")
-		assertEquals(fam2,fam)
-		
-		assertTrue(true)
+	def void categorias(){
+		runner.run([
+			val fam = HomeLocator::instance.categoriaHome.getNombre("Familiar")
+			val fam2 = HomeLocator::instance.categoriaHome.getNombre("Familiar")
+			assertEquals(fam2,fam)
+			NullObject.NULL		
+		])
 	}
+	
 	
 	override fillMocks() {
 		{
@@ -39,6 +41,7 @@ class EasyCategoriaTest extends AbstractTestEmpty{
 				save(deportivo)
 				save(todoTerreno)
 			]
+		
 		])
 	}
 	}

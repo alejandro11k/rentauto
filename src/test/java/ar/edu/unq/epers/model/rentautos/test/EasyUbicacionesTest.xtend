@@ -21,10 +21,7 @@ class EasyUbicacionesTest extends AbstractTestEmpty{
 	override fillMocks() {
 		{
 		runner.run([
-			val empresaHome = HomeLocator::instance.empresaHome
-			val autoHome = HomeLocator::instance.autoHome
 			val ubicacionHome = HomeLocator::instance.ubicacionHome
-			val usuarioHome = HomeLocator::instance.usuarioHome
 			
 			val retiro = new Ubicacion("Retiro")
 			val aeroparque = new Ubicacion("Aeroparque")
