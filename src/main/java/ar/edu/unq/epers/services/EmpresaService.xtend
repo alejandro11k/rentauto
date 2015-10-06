@@ -8,6 +8,8 @@ import java.util.Date
 import ar.edu.unq.epers.arq.homeLocator.HomeLocator
 import java.util.Set
 import ar.edu.unq.epers.model.Auto
+import ar.edu.unq.epers.model.Categoria
+import java.util.List
 
 class EmpresaService extends Service {
 	
@@ -28,6 +30,23 @@ class EmpresaService extends Service {
 		}
 		
 		result
+	}
+	
+	def autosDisponibles(Ubicacion origen, Date inicio, Date fin, Categoria categoria){
+		val autos = HomeLocator::instance.autoHome.getAll
+		//autos.filter[each | !(each.categoria == categoria && each.ubicacionParaDia(inicio) == origen && each.estaLibre(inicio,fin))]
+	
+	
+		
+		var List<Auto> result = newArrayList
+		
+			for (Auto each : autos){
+			if (each.categoria == categoria && each.ubicacionParaDia(inicio) == origen && each.estaLibre(inicio,fin))
+				result.add(each)
+		}
+		
+		result
+	
 	}
 	
 }

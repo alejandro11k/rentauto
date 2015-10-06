@@ -51,10 +51,25 @@ class EasyServiceTest extends AbstractTestEmpty{
 			val autosDisponibles = es.autosDisponibles(retiro, hoy())
 			
 			assertFalse(autosDisponibles.contains(autoReservado))
-			//assertEquals(1, autosDisponibles.size)
+			assertEquals(1, autosDisponibles.size)
 		])
 	}
 
+	@Test
+	def void autosDisponiblesCondicionLarga(){
+		runner.run([
+			val es = new EmpresaService(runner)
+			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
+			
+			val Categoria familiar = new Familiar()
+			
+			val autosDisponibles = es.autosDisponibles(retiro, hoy(), nuevaFecha(2016,01,01), familiar)
+			val todosLosAutos = HomeLocator.instance.autoHome.getAll
+			
+			assertEquals(todosLosAutos, autosDisponibles)
+			
+		])
+	}
 		
 	override fillMocks() {
 		{
