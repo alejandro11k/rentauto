@@ -23,6 +23,12 @@ class AutoHbmHome extends AutoHome {
 		q.list()
 	}
 	
+	override getPorCategoria(String categoria) {
+		val q = HibernateRunner::currentSession().createQuery("from Auto as auto where auto.categoria = :unvalor")
+		q.setString("unvalor", categoria)
+		q.list()
+	}
+	
 	
 	
 }

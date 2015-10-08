@@ -16,4 +16,12 @@ class AutoMemoryHome extends AutoHome {
 		autos.findFirst[each|each.patente.equals(string)]
 	}
 	
+	override getAll() {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	override getPorCategoria(String unaCategoria) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
 }

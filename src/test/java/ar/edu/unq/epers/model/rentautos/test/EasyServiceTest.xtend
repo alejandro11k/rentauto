@@ -17,7 +17,7 @@ import org.joda.time.DateTime
 class EasyServiceTest extends AbstractTestEmpty{
 		
 	@Test
-	def void autosSinReservas(){
+	def void autosSinReservasEnUnaUbicacionParticular(){
 		runner.run([
 			val es = new EmpresaService(runner)
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
@@ -36,7 +36,6 @@ class EasyServiceTest extends AbstractTestEmpty{
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
 			val autoReservado = HomeLocator.instance.autoHome.getPorPatente("XXX124")
 			val aeroparque = HomeLocator::instance.ubicacionHome.getPorNombre("Aeroparque")
-
 
 			new Reserva => [
 				origen = retiro

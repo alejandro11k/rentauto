@@ -33,15 +33,13 @@ class EmpresaService extends Service {
 	}
 	
 	def autosDisponibles(Ubicacion origen, Date inicio, Date fin, Categoria categoria){
-		val autos = HomeLocator::instance.autoHome.getAll
+		val autos = HomeLocator::instance.autoHome.getPorCategoria(categoria.nombre)
 		//autos.filter[each | !(each.categoria == categoria && each.ubicacionParaDia(inicio) == origen && each.estaLibre(inicio,fin))]
-	
-	
-		
+			
 		var List<Auto> result = newArrayList
 		
 			for (Auto each : autos){
-			if (each.categoria == categoria && each.ubicacionParaDia(inicio) == origen && each.estaLibre(inicio,fin))
+			if (each.ubicacionParaDia(inicio) == origen && each.estaLibre(inicio,fin))
 				result.add(each)
 		}
 		

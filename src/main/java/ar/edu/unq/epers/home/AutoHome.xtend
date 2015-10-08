@@ -10,5 +10,5 @@ abstract class AutoHome extends AbstractHome<Auto> {
 	
 	def Auto getPorPatente(String string)
 	def List<Auto> getAll()
-
+	def List<Auto> getPorCategoria(String unaCategoria)
 }
