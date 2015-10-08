@@ -13,6 +13,7 @@ import ar.edu.unq.epers.services.EmpresaService
 import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.Usuario
 import org.joda.time.DateTime
+import ar.edu.unq.epers.exceptions.NoHayAutosDisponiblesParaLaReserva
 
 class EasyServiceTest extends AbstractTestEmpty{
 		
@@ -85,13 +86,26 @@ class EasyServiceTest extends AbstractTestEmpty{
 	}
 	
 	@Test
-	def void test_realizarReserva(){
+	def void test_realizarReserva_con_Exito(){
 		runner.run([
 			val es = new EmpresaService(runner)
 			var usuario = HomeLocator::instance.usuarioHome.getPorUsername("usuarioPrueba")
 			//es.realizarUnaReserva(usuario, new Ubicacion("Retiro"), new Ubicacion("Retiro"), hoy(), nuevaFecha(2016,01,01))
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
 			es.realizarUnaReserva(usuario, retiro, retiro, hoy(), nuevaFecha(2016,01,01))
+			var usuarioConReserva = HomeLocator::instance.usuarioHome.getPorUsername("usuarioPrueba")
+			
+			assertEquals(1,usuarioConReserva.reservas.size())
+		])
+	}
+	
+	@Test(expected = NoHayAutosDisponiblesParaLaReserva)
+	def void test_realizarReserva_sin_Exito(){
+		runner.run([
+			val es = new EmpresaService(runner)
+			var usuario = HomeLocator::instance.usuarioHome.getPorUsername("usuarioPrueba")
+			val aeroparque = HomeLocator::instance.ubicacionHome.getPorNombre("Aeroparque")
+			es.realizarUnaReserva(usuario, aeroparque, aeroparque, hoy(), nuevaFecha(2016,01,01))
 			var usuarioConReserva = HomeLocator::instance.usuarioHome.getPorUsername("usuarioPrueba")
 			
 			assertEquals(1,usuarioConReserva.reservas.size())

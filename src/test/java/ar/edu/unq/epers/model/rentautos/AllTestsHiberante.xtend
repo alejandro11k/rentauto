@@ -9,13 +9,15 @@ import org.junit.runner.RunWith
 import org.junit.runners.Suite
 
 import static ar.edu.unq.epers.model.rentautos.AbstractTest.*
+import ar.edu.unq.epers.model.rentautos.test.EasyServiceTest
 
 @RunWith(Suite) 
 @Suite.SuiteClasses(#[
 	CalculoDePrecioTest,
 	EmpresaTest,
 	UbicacionPorFechaTest,
-	ValidarReservasTest
+	ValidarReservasTest,
+	EasyServiceTest
 ])
 
 class AllTestsHibernate {
