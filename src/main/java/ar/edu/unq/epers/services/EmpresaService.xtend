@@ -10,6 +10,10 @@ import java.util.Set
 import ar.edu.unq.epers.model.Auto
 import ar.edu.unq.epers.model.Categoria
 import java.util.List
+import ar.edu.unq.epers.model.Usuario
+import ar.edu.unq.epers.exceptions.NoHayAutosDisponiblesParaLaReserva
+import ar.edu.unq.epers.model.Reserva
+import ar.edu.unq.epers.model.IUsuario
 
 class EmpresaService extends Service {
 	
@@ -45,6 +49,36 @@ class EmpresaService extends Service {
 		
 		result
 	
+	}
+	
+	def autosDisponibles(Ubicacion origen, Date inicio, Date fin){
+		val autos = HomeLocator::instance.autoHome.getAll()		
+		var List<Auto> result = newArrayList
+		
+		for (Auto each : autos){
+			if (each.ubicacionParaDia(inicio) == origen && each.estaLibre(inicio,fin))
+				result.add(each)
+		}
+		
+		result
+	
+	}
+	
+	def realizarUnaReserva(IUsuario usuario, Ubicacion origen,Ubicacion destino,Date inicio,Date fin) throws NoHayAutosDisponiblesParaLaReserva{
+		val auto = autosDisponibles(origen,inicio,fin).last
+		if (auto != null){
+			new Reserva => [
+				it.origen = origen
+				it.destino = destino
+				it.inicio = inicio
+				it.fin = fin
+				it.auto = auto
+				it.usuario = usuario
+				reservar()
+			]
+		}
+		else
+			throw new NoHayAutosDisponiblesParaLaReserva
 	}
 	
 }

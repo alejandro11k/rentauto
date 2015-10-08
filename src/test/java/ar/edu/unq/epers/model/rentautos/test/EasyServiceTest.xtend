@@ -17,7 +17,7 @@ import org.joda.time.DateTime
 class EasyServiceTest extends AbstractTestEmpty{
 		
 	@Test
-	def void autosSinReservasEnUnaUbicacionParticular(){
+	def void test_autosDisponibles_por_ubicacion_y_fecha_con_autosSinReservasEnUnaUbicacionParticular(){
 		runner.run([
 			val es = new EmpresaService(runner)
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
@@ -30,11 +30,12 @@ class EasyServiceTest extends AbstractTestEmpty{
 	}
 
 	@Test
-	def void autosReservados(){
+	def void test_autosDisponibles_por_ubicacion_y_fecha_con_autosReservados(){
 		runner.run([
 			val es = new EmpresaService(runner)
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
-			val autoReservado = HomeLocator.instance.autoHome.getPorPatente("XXX124")
+			val autoReservado1 = HomeLocator.instance.autoHome.getPorPatente("XXX124")
+			val autoReservado2 = HomeLocator.instance.autoHome.getPorPatente("XXX123")
 			val aeroparque = HomeLocator::instance.ubicacionHome.getPorNombre("Aeroparque")
 
 			new Reserva => [
@@ -42,20 +43,33 @@ class EasyServiceTest extends AbstractTestEmpty{
 				destino = aeroparque
 				inicio = hoy()
 				fin = nuevaFecha(2016, 01, 01)
-				auto = autoReservado
+				auto = autoReservado1
 				usuario = HomeLocator::instance.usuarioHome.getPorUsername("usuarioPrueba")
 				reservar()
 			]
 			
 			val autosDisponibles = es.autosDisponibles(retiro, hoy())
 			
-			assertFalse(autosDisponibles.contains(autoReservado))
+			new Reserva => [
+				origen = retiro
+				destino = aeroparque
+				inicio = hoy()
+				fin = nuevaFecha(2016, 01, 01)
+				auto = autoReservado2
+				usuario = HomeLocator::instance.usuarioHome.getPorUsername("usuarioPrueba")
+				reservar()
+			]
+			
+			val sinAutosDisponibles = es.autosDisponibles(retiro, hoy())
+			
+			assertFalse(autosDisponibles.contains(autoReservado1))
 			assertEquals(1, autosDisponibles.size)
+			assertEquals(0,sinAutosDisponibles.size)
 		])
 	}
 
 	@Test
-	def void autosDisponiblesCondicionLarga(){
+	def void test_autosDisponibles_por_ubicacion_rango_de_fecha_y_categoria(){
 		runner.run([
 			val es = new EmpresaService(runner)
 			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
@@ -67,6 +81,20 @@ class EasyServiceTest extends AbstractTestEmpty{
 			
 			assertEquals(todosLosAutos, autosDisponibles)
 			
+		])
+	}
+	
+	@Test
+	def void test_realizarReserva(){
+		runner.run([
+			val es = new EmpresaService(runner)
+			var usuario = HomeLocator::instance.usuarioHome.getPorUsername("usuarioPrueba")
+			//es.realizarUnaReserva(usuario, new Ubicacion("Retiro"), new Ubicacion("Retiro"), hoy(), nuevaFecha(2016,01,01))
+			val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
+			es.realizarUnaReserva(usuario, retiro, retiro, hoy(), nuevaFecha(2016,01,01))
+			var usuarioConReserva = HomeLocator::instance.usuarioHome.getPorUsername("usuarioPrueba")
+			
+			assertEquals(1,usuarioConReserva.reservas.size())
 		])
 	}
 		
