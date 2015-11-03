@@ -64,4 +64,11 @@ class AmigosService {
 		]
 	}
 	
+	def amigosDeAmigos(Usuario usuario) {
+		GraphServiceRunner::run[
+			val home = createHome(it);
+			home.amigosDeAmigos(usuario)
+		]
+	}
+	
 }

@@ -8,6 +8,7 @@ import org.neo4j.graphdb.RelationshipType
 import org.neo4j.graphdb.Node
 import org.neo4j.graphdb.Direction
 import ar.edu.unq.epers.model.Mensaje
+import org.neo4j.graphdb.traversal.Evaluators
 
 @Accessors
 class AmigosHome {
@@ -114,6 +115,19 @@ class AmigosHome {
 		val nodoUsuario = getNodo(usuario)
 		val nodoMensajes = nodosRelacionados(nodoUsuario, TipoDeRelaciones.ENVIO, Direction.OUTGOING)
 		nodoMensajes.map[toMensaje].toSet
+	}
+	
+	def amigosDeAmigos(Usuario usuario){
+		val node = getNodo(usuario)
+		graph.traversalDescription()
+        .depthFirst()
+        .relationships( TipoDeRelaciones.AMISTAD )
+        .evaluator(Evaluators.excludeStartPosition)
+        .traverse(node)
+        .nodes
+        .map[toUsuario]
+        .toSet
+		
 	}
 	
 }

@@ -11,6 +11,10 @@ import org.junit.After
 class AmigosTest {
 	Usuario usuario1
 	Usuario usuario2
+	Usuario usuario3
+	Usuario usuario4
+	Usuario usuario5
+	Usuario usuario6
 	AmigosService service
 	
 	@Test
@@ -25,6 +29,26 @@ class AmigosTest {
 		service.enviarMensaje(usuario1, usuario2, "Hola")
 		assertEquals("Hola", service.mensajesRecibidos(usuario2).head.cuerpo)
 		assertEquals(1, service.mensajesEnviados(usuario1).size)
+	}
+	
+	@Test
+	def void amigosDeUsuarioConAmigos(){
+		val result = service.amigosDeAmigos(usuario1)
+		assertEquals(4, result.size)
+		assertFalse(result.contains(usuario6))
+	}
+	
+	@Test
+	def void amigosDeUsuarioConAmigosEnElMedio(){
+		val result = service.amigosDeAmigos(usuario3)
+		assertEquals(4, result.size)
+		assertFalse(result.contains(usuario6))
+	}
+	
+	@Test
+	def void amigosDeUsuarioSinAmigos(){
+		val result = service.amigosDeAmigos(usuario6)
+		assertTrue(result.empty)
 	}
 	
 	@After
@@ -47,11 +71,39 @@ class AmigosTest {
 			apellido = "Perez"
 			usuario = "jope"
 		]
+		usuario3 = new Usuario => [
+			nombre = "Pepe"
+			apellido = "Pepez"
+			usuario = "pepe2"
+		]
+		usuario4 = new Usuario =>  [
+			nombre = "Pepita"
+			apellido = "Golondrina"
+			usuario = "pepita"
+		]
+		usuario5 = new Usuario => [
+			nombre = "ASD"
+			apellido = "TEST"
+			usuario = "test"
+		]
+		usuario6 = new Usuario => [
+			nombre = "Forever"
+			apellido = "Alone"
+			usuario = "falone"
+		]
 		service = new AmigosService
 		service => [
 			agregar(usuario1)
 			agregar(usuario2)
+			agregar(usuario3)
+			agregar(usuario4)
+			agregar(usuario5)
+			agregar(usuario6)
 			amigar(usuario1,usuario2)
+			amigar(usuario2,usuario3)
+			amigar(usuario2,usuario4)
+			amigar(usuario1,usuario5)
+			amigar(usuario3,usuario1)
 		]	
 	}
 	
