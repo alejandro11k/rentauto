@@ -15,7 +15,7 @@
 		<many-to-one class="ar.edu.unq.epers.model.Usuario" 
 			name="usuario" column="usuario" />
 		<many-to-one class="ar.edu.unq.epers.model.Auto" 
-			name="auto" column="patente" />
+			name="auto" column="auto_id" />
 		<property name="inicio" />
 		<property name="fin" />
 	</class>
