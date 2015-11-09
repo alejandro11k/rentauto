@@ -32,7 +32,7 @@ class ReservasClaudioTest extends AbstractTest{
 	        new ReservaHbmHome().save(reserva);
 	    ])
 	
-	    //Agrego la segunda reserva  <-- Esta reserva no esta validando correctamente! :(
+	    //Agrego la segunda reserva
 	    runner.run([
 	        val unAuto = HomeLocator::instance.autoHome.getPorPatente("XXX123")
 	        val retiro = HomeLocator::instance.ubicacionHome.getPorNombre("Retiro")
