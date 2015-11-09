@@ -7,6 +7,7 @@ import ar.edu.unq.epers.services.grafos.AmigosService
 import ar.edu.unq.epers.model.Usuario
 import org.junit.Before
 import org.junit.After
+import java.util.LinkedHashSet
 
 class AmigosTest {
 	Usuario usuario1
@@ -20,8 +21,10 @@ class AmigosTest {
 	@Test
 	def void esAmigo(){
 		val amigos = service.amigosDe(usuario1)
-		assertEquals(1, amigos.length)
-		assertEquals(amigos.head, usuario2)
+		assertEquals(3, amigos.length)
+		val amigosDeUsuario1 = new LinkedHashSet()
+		amigosDeUsuario1.addAll(usuario2,usuario3,usuario5)
+		assertTrue(amigos.contains(usuario2))
 	}
 	
 	@Test
@@ -53,10 +56,7 @@ class AmigosTest {
 	
 	@After
 	def void after(){
-		service => [
-			eliminar(usuario1)
-			eliminar(usuario2)
-		]
+		service.eliminarTodosLosNodosYRelaciones
 	}
 	
 	@Before

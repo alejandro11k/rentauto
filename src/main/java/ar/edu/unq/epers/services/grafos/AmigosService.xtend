@@ -71,4 +71,11 @@ class AmigosService {
 		]
 	}
 	
+	def eliminarTodosLosNodosYRelaciones(){
+		GraphServiceRunner::run[
+			val home = createHome(it);
+			home.eliminarTodosLosNodosYRelaciones()
+		]
+	}
+	
 }

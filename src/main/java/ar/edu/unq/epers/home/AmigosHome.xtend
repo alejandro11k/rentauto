@@ -130,4 +130,8 @@ class AmigosHome {
 		
 	}
 	
+	def eliminarTodosLosNodosYRelaciones(){
+		graph.execute("MATCH (n) DETACH DELETE n")
+	}
+	
 }
