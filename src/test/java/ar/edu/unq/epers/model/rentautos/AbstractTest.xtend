@@ -17,7 +17,7 @@ import org.junit.Before
 
 class AbstractTest {
 	
-	public static boolean inMemory = true
+	public static boolean inMemory = false
 	
 	Runner _runner
 	
