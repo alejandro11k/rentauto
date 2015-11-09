@@ -50,6 +50,10 @@ class Usuario implements IUsuario{
 	    	return other.usuario == this.usuario
 	}
 	
+	override hashCode(){
+		usuario.hashCode
+	}
+	
 	def cambiarPassword(String passwordActual, String passwordNueva)throws NuevaPasswordInvalida {
 		if (passwordActual == password && passwordNueva != password)
 			password = passwordNueva
@@ -59,5 +63,9 @@ class Usuario implements IUsuario{
 	
 	override agregarReserva(Reserva unaReserva) {
 		reservas.add(unaReserva)
+	}
+	
+	override def toString() {
+		return this.nombre + " " + this.apellido
 	}
 }

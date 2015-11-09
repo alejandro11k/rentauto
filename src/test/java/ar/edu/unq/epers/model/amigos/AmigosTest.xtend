@@ -22,9 +22,19 @@ class AmigosTest {
 	def void esAmigo(){
 		val amigos = service.amigosDe(usuario1)
 		assertEquals(3, amigos.length)
-		val amigosDeUsuario1 = new LinkedHashSet()
-		amigosDeUsuario1.addAll(usuario2,usuario3,usuario5)
+		//val amigosDeUsuario1 = new LinkedHashSet()
+		//amigosDeUsuario1.addAll(usuario2,usuario3,usuario5)
 		assertTrue(amigos.contains(usuario2))
+		assertTrue(amigos.contains(usuario3))
+		assertTrue(amigos.contains(usuario5))
+		
+	}
+	@Test
+	def void tieneUnSoloAmigo(){
+		service.amigar(usuario5,usuario1)
+		val amigos = service.amigosDe(usuario5)
+		assertEquals(1, amigos.length)
+		assertEquals(amigos.head,usuario1)
 	}
 	
 	@Test
@@ -46,6 +56,11 @@ class AmigosTest {
 		val result = service.amigosDeAmigos(usuario3)
 		assertEquals(4, result.size)
 		assertFalse(result.contains(usuario6))
+		assertTrue(result.contains(usuario1))
+		assertTrue(result.contains(usuario2))
+		assertTrue(result.contains(usuario4))
+		assertTrue(result.contains(usuario5))
+		
 	}
 	
 	@Test
@@ -91,6 +106,7 @@ class AmigosTest {
 			apellido = "Alone"
 			usuario = "falone"
 		]
+		
 		service = new AmigosService
 		service => [
 			agregar(usuario1)
