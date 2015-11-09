@@ -15,7 +15,7 @@
 
 		<set name="categoriasAdmitidas">
 			<key column="cuit"></key>
-			<one-to-many class="ar.edu.unq.epers.model.Categoria" />
+			<many-to-many class="ar.edu.unq.epers.model.Categoria" />
 		</set>
 
 		<set name="usuarios">
@@ -25,7 +25,7 @@
 
 		<set name="reservas">
 			<key column="ciut" />
-			<many-to-many class="ar.edu.unq.epers.model.Reserva" />
+			<one-to-many class="ar.edu.unq.epers.model.Reserva" />
 		</set>
 
 	</class>
