@@ -9,6 +9,7 @@ import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.Ubicacion
 import ar.edu.unq.epers.model.Auto
 import ar.edu.unq.epers.model.Turismo
+import ar.edu.unq.epers.model.comentarios.ParametrosDeCalificacion
 
 class ComentariosTest {
 	
