@@ -10,12 +10,16 @@ import ar.edu.unq.epers.model.Ubicacion
 import ar.edu.unq.epers.model.Auto
 import ar.edu.unq.epers.model.Turismo
 import ar.edu.unq.epers.model.comentarios.ParametrosDeCalificacion
+import ar.edu.unq.epers.home.Calificacion
+import ar.edu.unq.epers.services.comentarios.ComentariosService
 
 class ComentariosTest {
 	
 	Usuario unUsuario
 	Reserva unaReserva
 	Auto unAuto
+	
+	ComentariosService service
 	
 	@Before
 	def setUp(){
@@ -43,10 +47,10 @@ class ComentariosTest {
 	
 	@Test
 	def void calificarUnaReserva(){
-		val calificacion = new ParametrosDeCalificacion => [
-			calificacion = Calificacion.MALO			
-		]
-		service.calificar(unUsuario, unaReserva, calificacion)
+//		val calificacion = new ParametrosDeCalificacion => [
+//			calificacion = Calificacion.MALO			
+//		]
+		service.calificar(unUsuario, unaReserva, Calificacion.MALO)
 		
 		val comentario = service.obtenerComentario(unUsuario, unaReserva)
 		
