@@ -1,61 +1,58 @@
 package ar.edu.unq.epers.model.comentarios.test
 
+import ar.edu.unq.epers.home.Calificacion
+import ar.edu.unq.epers.model.Auto
+import ar.edu.unq.epers.model.Reserva
+import ar.edu.unq.epers.model.Turismo
+import ar.edu.unq.epers.model.Ubicacion
+import ar.edu.unq.epers.model.Usuario
+import ar.edu.unq.epers.services.comentarios.ComentariosService
+import org.junit.Before
 import org.junit.Test
 
 import static org.junit.Assert.*
-import org.junit.Before
-import ar.edu.unq.epers.model.Usuario
-import ar.edu.unq.epers.model.Reserva
-import ar.edu.unq.epers.model.Ubicacion
-import ar.edu.unq.epers.model.Auto
-import ar.edu.unq.epers.model.Turismo
-import ar.edu.unq.epers.model.comentarios.ParametrosDeCalificacion
-import ar.edu.unq.epers.home.Calificacion
-import ar.edu.unq.epers.services.comentarios.ComentariosService
 
 class ComentariosTest {
 	
 	Usuario unUsuario
 	Reserva unaReserva
 	Auto unAuto
-	
 	ComentariosService service
 	
 	@Before
 	def setUp(){
-		val unUsuario = new Usuario => [
+		unUsuario = new Usuario => [
 			nombre = "Juan"
 			apellido = "Perez"
 			usuario = "jupe"
 		]
 		
-		val unAuto = new Auto => [
+		unAuto = new Auto => [
 			marca='Chevrolet'
 			modelo='Classic'
 			patente='BAD234'
 			categoria = new Turismo
 		]
 		
-		val unaReserva = new Reserva => [
+		unaReserva = new Reserva => [
 			numeroSolicitud = 123
 			origen = new Ubicacion('Avellaneda')
 			destino = new Ubicacion('Bernal')
 			usuario = unUsuario
 			auto = unAuto
 		]
+		
+		service = new ComentariosService
 	}
 	
 	@Test
 	def void calificarUnaReserva(){
-//		val calificacion = new ParametrosDeCalificacion => [
-//			calificacion = Calificacion.MALO			
-//		]
 		service.calificar(unUsuario, unaReserva, Calificacion.MALO)
 		
-		val comentario = service.obtenerComentario(unUsuario, unaReserva)
+		val comentario = service.obtenerComentario(unaReserva)
 		
-		assertEquals(comentario.usuario, unUsuario)
-		assertEquals(comentario.unaReserva, unaReserva)
+		assertEquals(comentario.usuario, unUsuario.usuario)
+		assertEquals(comentario.nroSolicitudReserva, unaReserva.numeroSolicitud)
 		assertEquals(comentario.calificacion, Calificacion.MALO)
 	}
 	
