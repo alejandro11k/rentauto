@@ -21,6 +21,10 @@ class ComentariosTest {
 	Auto unAuto
 	ComentariosService service
 	
+	Reserva otraReserva
+	
+	Reserva unaReservaMas
+	
 	@Before
 	def void setUp(){
 		unUsuario = new Usuario => [
@@ -38,6 +42,22 @@ class ComentariosTest {
 		
 		unaReserva = new Reserva => [
 			numeroSolicitud = 123
+			origen = new Ubicacion('Avellaneda')
+			destino = new Ubicacion('Bernal')
+			usuario = unUsuario
+			auto = unAuto
+		]
+		
+		otraReserva = new Reserva => [
+			numeroSolicitud = 124
+			origen = new Ubicacion('Avellaneda')
+			destino = new Ubicacion('Bernal')
+			usuario = unUsuario
+			auto = unAuto
+		]
+		
+		unaReservaMas = new Reserva => [
+			numeroSolicitud = 125
 			origen = new Ubicacion('Avellaneda')
 			destino = new Ubicacion('Bernal')
 			usuario = unUsuario
@@ -89,5 +109,16 @@ class ComentariosTest {
 		val comentario = service.obtenerComentario(unaReserva)
 		
 		assertEquals(Visibilidad.PRIVADO, comentario.visibilidad)
+	}
+	
+	@Test
+	def void verPerfilDeUnDesconocido(){
+		service.calificar(unUsuario, unaReserva, Calificacion.MALO, "Malo", Visibilidad.PRIVADO)
+		service.calificar(unUsuario, otraReserva, Calificacion.MALO, "Malo", Visibilidad.PUBLICO)
+		service.calificar(unUsuario, unaReserva, Calificacion.MALO, "Malo", Visibilidad.AMIGOS)
+		
+		val perfil = service.obtenerPerfilDeUsuario(unUsuario, #[Visibilidad.PUBLICO])
+		assertEquals(1, perfil.size)
+		//assertEquals(124,perfil.get(0).numeroSolicitud)
 	}
 }

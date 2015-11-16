@@ -7,6 +7,7 @@ import ar.edu.unq.epers.home.ComentariosHome
 import ar.edu.unq.epers.arq.runner.ComentariosRunner
 import org.mongojack.DBQuery
 import ar.edu.unq.epers.home.Visibilidad
+import java.util.List
 
 class ComentariosService {
 	
@@ -41,6 +42,15 @@ class ComentariosService {
 		home.mongoCollection.find(DBQuery.is("numeroSolicitud", reserva.numeroSolicitud)).next
 	}
 	
+	def obtenerPerfilDeUsuario(Usuario unUsuario, List<Visibilidad> visibilidades){
+		var query = DBQuery.is("usuario", unUsuario.usuario)
+		query = query.and(DBQuery.in("visibilidad",visibilidades))
+		home.mongoCollection.find(query).iterator.toList
+	}
+	
+	/**
+	 * Limpia la base de datos
+	 */
 	def cleanDB() {
 		home.mongoCollection.drop
 	}
