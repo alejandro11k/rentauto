@@ -11,6 +11,7 @@ import org.junit.Before
 import org.junit.Test
 
 import static org.junit.Assert.*
+import org.junit.After
 
 class ComentariosTest {
 	
@@ -20,7 +21,7 @@ class ComentariosTest {
 	ComentariosService service
 	
 	@Before
-	def setUp(){
+	def void setUp(){
 		unUsuario = new Usuario => [
 			nombre = "Juan"
 			apellido = "Perez"
@@ -45,6 +46,11 @@ class ComentariosTest {
 		service = new ComentariosService
 	}
 	
+	@After
+	def void cleanDB(){
+		service.cleanDB
+	}
+	
 	@Test
 	def void calificarUnaReserva(){
 		service.calificar(unUsuario, unaReserva, Calificacion.MALO)
@@ -52,7 +58,7 @@ class ComentariosTest {
 		val comentario = service.obtenerComentario(unaReserva)
 		
 		assertEquals(comentario.usuario, unUsuario.usuario)
-		assertEquals(comentario.nroSolicitudReserva, unaReserva.numeroSolicitud)
+		assertEquals(comentario.numeroSolicitud, unaReserva.numeroSolicitud)
 		assertEquals(comentario.calificacion, Calificacion.MALO)
 	}
 	

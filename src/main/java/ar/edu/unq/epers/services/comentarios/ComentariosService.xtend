@@ -19,13 +19,17 @@ class ComentariosService {
 		home.insert(new Comentario => [
 			usuario = usuario.usuario
 			patenteAuto = reserva.auto.patente
-			nroSolicitudReserva = reserva.numeroSolicitud
+			numeroSolicitud = reserva.numeroSolicitud
 			it.calificacion = calificacion
 		])
 	}
 	
 	def obtenerComentario(Reserva reserva) {
-		home.mongoCollection.find(DBQuery.is("nroSolicitudReserva", reserva.numeroSolicitud)).next as Comentario
+		home.mongoCollection.find(DBQuery.is("numeroSolicitud", reserva.numeroSolicitud)).next
+	}
+	
+	def cleanDB() {
+		home.mongoCollection.drop
 	}
 	
 }
