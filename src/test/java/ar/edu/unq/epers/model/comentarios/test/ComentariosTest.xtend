@@ -12,6 +12,7 @@ import org.junit.Test
 
 import static org.junit.Assert.*
 import org.junit.After
+import ar.edu.unq.epers.home.Visibilidad
 
 class ComentariosTest {
 	
@@ -53,23 +54,40 @@ class ComentariosTest {
 	
 	@Test
 	def void calificarUnaReserva(){
-		service.calificar(unUsuario, unaReserva, Calificacion.MALO)
+		service.calificar(unUsuario, unaReserva, Calificacion.MALO, "Malo")
 		
 		val comentario = service.obtenerComentario(unaReserva)
 		
-		assertEquals(comentario.usuario, unUsuario.usuario)
-		assertEquals(comentario.numeroSolicitud, unaReserva.numeroSolicitud)
-		assertEquals(comentario.calificacion, Calificacion.MALO)
+		assertEquals(unUsuario.usuario, comentario.usuario)
+		assertEquals(unaReserva.numeroSolicitud, comentario.numeroSolicitud)
+		assertEquals(Calificacion.MALO, comentario.calificacion)
+		assertEquals("Malo", comentario.texto)
 	}
 	
-//	@Test
-//	def void calificarUnaReserva(){
-//		calificacion = new ParametrosDeCalificacion => [
-//			calificacion = Calificacion.MALO
-//			comentario = "FUUU"
-//			nivelDeVisibilidad = Visibilidad.PUBLICO
-//			
-//		]
-//		usuario.calificar(unaReserva, calificacion)
-//	}
+	@Test
+	def void calificarUnaReservaSinPrivacidad(){
+		service.calificar(unUsuario, unaReserva, Calificacion.MALO, "Malo")
+		
+		val comentario = service.obtenerComentario(unaReserva)
+		
+		assertEquals(Visibilidad.PUBLICO, comentario.visibilidad)
+	}
+	
+	@Test
+	def void calificarUnaReservaSoloAmigos(){
+		service.calificar(unUsuario, unaReserva, Calificacion.MALO, "Malo", Visibilidad.AMIGOS)
+		
+		val comentario = service.obtenerComentario(unaReserva)
+		
+		assertEquals(Visibilidad.AMIGOS, comentario.visibilidad)
+	}
+	
+	@Test
+	def void calificarUnaReservaPrivado(){
+		service.calificar(unUsuario, unaReserva, Calificacion.MALO, "Malo", Visibilidad.PRIVADO)
+		
+		val comentario = service.obtenerComentario(unaReserva)
+		
+		assertEquals(Visibilidad.PRIVADO, comentario.visibilidad)
+	}
 }
