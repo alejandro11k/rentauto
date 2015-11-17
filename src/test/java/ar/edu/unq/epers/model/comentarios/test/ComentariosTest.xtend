@@ -119,6 +119,6 @@ class ComentariosTest {
 		
 		val perfil = service.obtenerPerfilDeUsuario(unUsuario, #[Visibilidad.PUBLICO])
 		assertEquals(1, perfil.size)
-		//assertEquals(124,perfil.get(0).numeroSolicitud)
+		assertEquals(124,perfil.get(0).numeroSolicitud)
 	}
 }
