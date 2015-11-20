@@ -11,6 +11,7 @@ import ar.edu.unq.epers.model.Turismo
 import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.Ubicacion
 import static ar.edu.unq.epers.extensions.DateExtensions.*
+import java.util.Date
 
 class MainServiceTest{
 
@@ -20,6 +21,8 @@ class MainServiceTest{
 	Auto unAuto
 	Ubicacion retiro
 	Ubicacion constitucion
+	Date navidad
+	Date anioNuevo
 	
 	@Test
 	def void amigarUsuarios(){
@@ -29,7 +32,8 @@ class MainServiceTest{
 	}
 	@Test
 	def void realizarUnaReserva(){
-		service.realizarUnaReserva(usuarioPrueba,retiro,constitucion,hoy(), nuevaFecha(2016,01,01))
+		
+		service.realizarUnaReserva(usuarioPrueba,retiro,constitucion,navidad, anioNuevo)
 		var usuarioConReserva = service.usuario("usuarioPrueba")
 		assertEquals(1,usuarioConReserva.reservas.size())
 	}
@@ -67,8 +71,11 @@ class MainServiceTest{
 		
 		service.registrarUsuario(usuarioPrueba2)
 		
-		retiro = new Ubicacion('Retiro')
-		constitucion = new Ubicacion('Constitucion')
+		service.registrarUbicacion(new Ubicacion('Retiro'))
+		service.registrarUbicacion(new Ubicacion('Constitucion'))
+		
+		retiro = service.ubicacion('Retiro') 
+		constitucion = service.ubicacion('Constitucion') 
 		
 		unAuto = new Auto => [
 			marca='Chevrolet'
@@ -80,9 +87,8 @@ class MainServiceTest{
 		
 		service.registrarAuto(unAuto)
 		
-		
-		
-		
-		
+		navidad = nuevaFecha(2015,12,25)
+		anioNuevo = nuevaFecha(2016,01,01)
+
 	}
 }

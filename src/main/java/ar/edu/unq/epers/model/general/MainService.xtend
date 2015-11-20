@@ -11,25 +11,27 @@ import ar.edu.unq.epers.model.Auto
 import ar.edu.unq.epers.home.AutoHome
 import ar.edu.unq.epers.model.Ubicacion
 import java.util.Date
-import ar.edu.unq.epers.services.EmpresaService
+import ar.edu.unq.epers.home.UbicacionHome
 
 class MainService {
 	
 	HibernateRunner hbmRunner
 	UsuarioHome usuarioHome
 	AutoHome autoHome
+	UbicacionHome ubicacionHome
 	AmigosService amigosService
 	ComentariosService comentariosService
-	EmpresaService empresaService
+	ReservaService reservaService
 	
 	new(){
 		hbmRunner = new HibernateRunner
 		HomeLocator::setInstance(new HibernateHomeLocator())
 		usuarioHome = HomeLocator::instance.usuarioHome
 		autoHome = HomeLocator::instance.autoHome
+		ubicacionHome = HomeLocator::instance.ubicacionHome
 		amigosService = new AmigosService
 		comentariosService = new ComentariosService
-		empresaService = new EmpresaService(hbmRunner)
+		reservaService = new ReservaService()
 	}
 	
 	/**
@@ -38,6 +40,12 @@ class MainService {
 	def registrarUsuario(Usuario usuario) {
 		hbmRunner.run([usuarioHome.save(usuario)])
 		amigosService.agregar(usuario)
+	}
+	/**
+	 * Registra una Ubicacion en el sistema
+	 */
+	def registrarUbicacion(Ubicacion ubicacion) {
+		hbmRunner.run([ubicacionHome.save(ubicacion)])
 	}
 	/**
 	 * Registra un Auto en el sistema
@@ -49,7 +57,7 @@ class MainService {
 	 * Permite realizar una reserva
 	 */
 	def realizarUnaReserva(Usuario usuario, Ubicacion origen, Ubicacion destino, Date inicio, Date fin) {
-		empresaService.realizarUnaReserva(usuario,origen,destino,inicio,fin)
+		hbmRunner.run([reservaService.realizarUnaReserva(usuario,origen,destino,inicio,fin)])
 	}
 	/**
 	 * Genera una relación de amistad entre dos usuarios
@@ -69,6 +77,12 @@ class MainService {
 	 */
 	 def usuario(String usuario){
 	 	hbmRunner.run([usuarioHome.getPorUsername(usuario)])
+	 }
+	 /**
+	 * Retorna una Ubicacion
+	 */
+	 def ubicacion(String ubicacion){
+	 	hbmRunner.run([ubicacionHome.getPorNombre(ubicacion)])
 	 }
 	/**
 	 * Borra toda la información del sistema
