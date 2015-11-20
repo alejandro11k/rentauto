@@ -7,6 +7,7 @@ abstract class Categoria {
 	String nombre
 	
 	abstract def Double calcularCosto(Auto auto)
+	def String getNombre() { this.nombre }
 }
 
 

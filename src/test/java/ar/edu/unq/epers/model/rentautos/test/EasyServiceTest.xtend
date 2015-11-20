@@ -14,8 +14,10 @@ import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.Usuario
 import org.joda.time.DateTime
 import ar.edu.unq.epers.exceptions.NoHayAutosDisponiblesParaLaReserva
+import ar.edu.unq.epers.model.rentautos.AbstractTest
 
 class EasyServiceTest extends AbstractTestEmpty{
+//class EasyServiceTest extends AbstractTest{
 		
 	@Test
 	def void test_autosDisponibles_por_ubicacion_y_fecha_con_autosSinReservasEnUnaUbicacionParticular(){
@@ -112,6 +114,7 @@ class EasyServiceTest extends AbstractTestEmpty{
 		])
 	}
 		
+	//def fillMocks() {
 	override fillMocks() {
 		{
 		runner.run([

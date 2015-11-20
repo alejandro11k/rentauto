@@ -29,6 +29,7 @@ class ReservasClaudioTest extends AbstractTest{
 	            usuario = usuarioPrueba
 	            reservar()
 	        ]
+	  
 	        new ReservaHbmHome().save(reserva);
 	    ])
 	

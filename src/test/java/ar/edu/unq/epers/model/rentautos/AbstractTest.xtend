@@ -14,6 +14,7 @@ import ar.edu.unq.epers.model.Usuario
 import org.joda.time.DateTime
 import org.junit.After
 import org.junit.Before
+import ar.edu.unq.epers.arq.homeLocator.MemoryHomeLocator
 
 class AbstractTest {
 	
@@ -41,7 +42,7 @@ class AbstractTest {
 	@Before
 	def prepare() {
 		if (inMemory) {
-			//HomeLocator::setInstance(new MemoryHomeLocator())
+			HomeLocator::setInstance(new MemoryHomeLocator())
 		} else {
 			HomeLocator::setInstance(new HibernateHomeLocator())
 		}

@@ -8,6 +8,7 @@ import ar.edu.unq.epers.arq.runner.LogRunner
 import ar.edu.unq.epers.arq.runner.Runner
 import org.junit.After
 import org.junit.Before
+import ar.edu.unq.epers.arq.homeLocator.MemoryHomeLocator
 
 abstract class AbstractTestEmpty {
 	
@@ -35,7 +36,7 @@ abstract class AbstractTestEmpty {
 	@Before
 	def prepare() {
 		if (inMemory) {
-			//HomeLocator::setInstance(new MemoryHomeLocator())
+			HomeLocator::setInstance(new MemoryHomeLocator())
 		} else {
 			HomeLocator::setInstance(new HibernateHomeLocator())
 		}
