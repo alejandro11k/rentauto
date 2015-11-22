@@ -12,6 +12,7 @@ import ar.edu.unq.epers.home.AutoHome
 import ar.edu.unq.epers.model.Ubicacion
 import java.util.Date
 import ar.edu.unq.epers.home.UbicacionHome
+import ar.edu.unq.epers.services.EmpresaService
 
 class MainService {
 	
@@ -22,6 +23,8 @@ class MainService {
 	AmigosService amigosService
 	ComentariosService comentariosService
 	ReservaService reservaService
+	//
+	EmpresaService empresaService
 	
 	new(){
 		hbmRunner = new HibernateRunner
@@ -32,6 +35,8 @@ class MainService {
 		amigosService = new AmigosService
 		comentariosService = new ComentariosService
 		reservaService = new ReservaService()
+		//
+		empresaService = new EmpresaService(hbmRunner)
 	}
 	
 	/**
@@ -87,10 +92,10 @@ class MainService {
 	 /**
 	  * Retorna los autos disponibles en una fecha y ubicacion
 	  */
-	  def autosDisponibles(Ubicacion unaUbicacion, Date unaFecha){
-	  	hbmRunner.run([
-	  		reservaService.autosDisponibles(unaUbicacion,unaFecha,autoHome.all)
-	  	])
+	  def autosEnUnaUbicacion(Ubicacion unaUbicacion, Date unaFecha){
+	  	//empresaService.autosDisponibles(unaUbicacion,unaFecha)
+	  	//hbmRunner.run([reservaService.autosDisponibles(unaUbicacion,unaFecha,autoHome.all)])
+	  	hbmRunner.run([empresaService.autosEnUnaUbicacion(unaUbicacion,unaFecha)])
 	  }
 	/**
 	 * Borra toda la información del sistema

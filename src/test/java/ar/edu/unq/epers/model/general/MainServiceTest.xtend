@@ -32,7 +32,7 @@ class MainServiceTest{
 	}
 	@Test
 	def void autosDisponiblesEnUnaUbicacionYUnaFecha(){
-		var autosDisponibles = service.autosDisponibles(retiro,navidad)
+		var autosDisponibles = service.autosEnUnaUbicacion(retiro,navidad)
 		assertEquals(unAuto,autosDisponibles.head)
 	}
 	@Test

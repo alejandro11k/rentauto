@@ -20,6 +20,10 @@ class EmpresaService extends Service {
 		super(runner)
 	}
 	
+	def autosEnUnaUbicacion(Ubicacion unaUbicacion, Date unaFecha){
+		val autos = HomeLocator::instance.autoHome.getAll
+		autos.filter[ubicacionParaDia(unaFecha)==unaUbicacion]
+	}
 	/** Retorna los autos disponibles para una ubicacion en particular
 	 * en una fecha determinada
 	 */
