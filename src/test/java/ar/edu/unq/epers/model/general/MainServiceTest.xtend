@@ -31,6 +31,11 @@ class MainServiceTest{
 		assertTrue(service.amigosDe(usuarioPrueba).contains(usuarioPrueba2))
 	}
 	@Test
+	def void autosDisponiblesEnUnaUbicacionYUnaFecha(){
+		var autosDisponibles = service.autosDisponibles(retiro,navidad)
+		assertEquals(unAuto,autosDisponibles.head)
+	}
+	@Test
 	def void realizarUnaReserva(){
 		
 		service.realizarUnaReserva(usuarioPrueba,retiro,constitucion,navidad, anioNuevo)

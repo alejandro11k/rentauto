@@ -18,12 +18,15 @@ class ReservaService {
 	
 	}
 	
+	def autosDisponibles(Ubicacion unaUbicacion, Date unaFecha, List<Auto> autos){
+		autos.filter[ubicacionParaDia(unaFecha)==unaUbicacion]
+	}
 	/** Retorna los autos disponibles para una ubicacion en particular
 	 * en una fecha determinada
 	 */
 	 def autosDisponibles(Ubicacion unaUbicacion, Date unaFecha){
         val autos = HomeLocator::instance.autoHome.getAll
-        autos.filter[ubicacionParaDia(unaFecha) == unaUbicacion && estaLibre(unaFecha,unaFecha)].toList 	
+        autos.filter[ubicacionParaDia(unaFecha) == unaUbicacion && estaLibre(unaFecha,unaFecha)].toList
     }
 	
 	def autosDisponibles(Ubicacion origen, Date inicio, Date fin, Categoria categoria){

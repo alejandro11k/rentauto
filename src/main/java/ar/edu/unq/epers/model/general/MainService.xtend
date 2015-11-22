@@ -84,6 +84,14 @@ class MainService {
 	 def ubicacion(String ubicacion){
 	 	hbmRunner.run([ubicacionHome.getPorNombre(ubicacion)])
 	 }
+	 /**
+	  * Retorna los autos disponibles en una fecha y ubicacion
+	  */
+	  def autosDisponibles(Ubicacion unaUbicacion, Date unaFecha){
+	  	hbmRunner.run([
+	  		reservaService.autosDisponibles(unaUbicacion,unaFecha,autoHome.all)
+	  	])
+	  }
 	/**
 	 * Borra toda la información del sistema
 	 */
