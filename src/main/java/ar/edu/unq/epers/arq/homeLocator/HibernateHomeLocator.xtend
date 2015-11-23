@@ -6,6 +6,7 @@ import ar.edu.unq.epers.home.hbm.UbicacionHbmHome
 import ar.edu.unq.epers.home.hbm.UsuarioHbmHome
 import org.eclipse.xtend.lib.annotations.Accessors
 import ar.edu.unq.epers.home.hbm.CategoriaHbmHome
+import ar.edu.unq.epers.home.hbm.ReservaHbmHome
 
 @Accessors
 class HibernateHomeLocator extends HomeLocator {
@@ -15,4 +16,5 @@ class HibernateHomeLocator extends HomeLocator {
 	UbicacionHbmHome ubicacionHome = new UbicacionHbmHome
 	UsuarioHbmHome usuarioHome = new UsuarioHbmHome
 	CategoriaHbmHome categoriaHome = new CategoriaHbmHome
+	ReservaHbmHome reservaHome = new ReservaHbmHome
 }

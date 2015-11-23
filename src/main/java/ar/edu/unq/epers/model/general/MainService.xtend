@@ -13,6 +13,8 @@ import ar.edu.unq.epers.model.Ubicacion
 import java.util.Date
 import ar.edu.unq.epers.home.UbicacionHome
 import ar.edu.unq.epers.services.EmpresaService
+import ar.edu.unq.epers.home.Calificacion
+import ar.edu.unq.epers.home.ReservaHome
 
 class MainService {
 	
@@ -22,8 +24,7 @@ class MainService {
 	UbicacionHome ubicacionHome
 	AmigosService amigosService
 	ComentariosService comentariosService
-	ReservaService reservaService
-	//
+	ReservaHome reservaHome
 	EmpresaService empresaService
 	
 	new(){
@@ -34,8 +35,7 @@ class MainService {
 		ubicacionHome = HomeLocator::instance.ubicacionHome
 		amigosService = new AmigosService
 		comentariosService = new ComentariosService
-		reservaService = new ReservaService()
-		//
+		reservaHome = HomeLocator::instance.reservaHome
 		empresaService = new EmpresaService(hbmRunner)
 	}
 	
@@ -62,7 +62,7 @@ class MainService {
 	 * Permite realizar una reserva
 	 */
 	def realizarUnaReserva(Usuario usuario, Ubicacion origen, Ubicacion destino, Date inicio, Date fin) {
-		hbmRunner.run([reservaService.realizarUnaReserva(usuario,origen,destino,inicio,fin)])
+		hbmRunner.run([empresaService.realizarUnaReserva(usuario,origen,destino,inicio,fin)])
 	}
 	/**
 	 * Genera una relación de amistad entre dos usuarios
@@ -105,4 +105,20 @@ class MainService {
 	 	amigosService.eliminarTodosLosNodosYRelaciones
 	 	comentariosService.cleanDB
 	 }
+	
+	/**
+	 * Retorna toda la lista de reservas que hizo un usuario
+	 */
+	def consultarReservas(Usuario usuario) {
+		hbmRunner.run([reservaHome.getPorUsername(usuario)])
+	}
+	
+	def calificar(Object object, Object object2, Calificacion calificacion, String string) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
+	def obtenerComentario(Object object) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
 }

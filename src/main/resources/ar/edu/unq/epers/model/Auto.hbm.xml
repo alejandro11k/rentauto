@@ -13,10 +13,10 @@
 		<property name="modelo" type="string" length="20" />
 		<property name="año" />
 		<property name="costoBase" />
-		<many-to-one name="categoria" cascade="save-update" />
-		<many-to-one name="ubicacionInicial" not-null="true" cascade="save-update"/>
+		<many-to-one name="categoria" cascade="save-update" lazy="false"/>
+		<many-to-one name="ubicacionInicial" not-null="true" cascade="save-update" lazy="false"/>
 
-		<list name="reservas" cascade="save-update" inverse="false">
+		<list name="reservas" cascade="save-update" inverse="false" lazy="false">
 			<key column="auto_id" />
 			<list-index column="orden"></list-index>
 			<one-to-many class="ar.edu.unq.epers.model.Reserva"/>

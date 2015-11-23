@@ -18,7 +18,7 @@
 		<property type="org.joda.time.contrib.hibernate.PersistentDateTime"
 			name="nacimiento" />
 		
-		<bag name="reservas" cascade="save-update" inverse="true">
+		<bag name="reservas" cascade="save-update" inverse="true" lazy="false">
 			<key column="usuario" />
 			<one-to-many class="ar.edu.unq.epers.model.Reserva" />
 		</bag>

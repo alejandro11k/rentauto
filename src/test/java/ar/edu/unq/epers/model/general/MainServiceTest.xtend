@@ -12,6 +12,7 @@ import ar.edu.unq.epers.model.Reserva
 import ar.edu.unq.epers.model.Ubicacion
 import static ar.edu.unq.epers.extensions.DateExtensions.*
 import java.util.Date
+import ar.edu.unq.epers.home.Calificacion
 
 class MainServiceTest{
 
@@ -42,7 +43,19 @@ class MainServiceTest{
 		var usuarioConReserva = service.usuario("usuarioPrueba")
 		assertEquals(1,usuarioConReserva.reservas.size())
 	}
-	
+	@Test
+	def void calificarUnaReserva(){
+		service.realizarUnaReserva(usuarioPrueba,retiro,constitucion,navidad, anioNuevo)
+		val unaReserva = service.consultarReservas(usuarioPrueba).head 
+		service.calificar(usuarioPrueba, unaReserva.numeroSolicitud, Calificacion.MALO, "Malo")
+		
+		val comentario = service.obtenerComentario(unaReserva.numeroSolicitud)
+		
+		assertEquals(usuarioPrueba.usuario, comentario.usuario)
+		assertEquals(unaReserva.numeroSolicitud, comentario.numeroSolicitud)
+		assertEquals(Calificacion.MALO, comentario.calificacion)
+		assertEquals("Malo", comentario.texto)
+	}
 	@After
 	def void tearDown(){
 		service.clean
