@@ -12,4 +12,8 @@ class ReservaMemoryHome extends ReservaHome {
 		reservas.add(unaReserva)
 	}
 	
+	override getPorUsername(String usuario) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
 }

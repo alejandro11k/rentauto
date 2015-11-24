@@ -15,6 +15,9 @@ import ar.edu.unq.epers.home.UbicacionHome
 import ar.edu.unq.epers.services.EmpresaService
 import ar.edu.unq.epers.home.Calificacion
 import ar.edu.unq.epers.home.ReservaHome
+import ar.edu.unq.epers.model.Reserva
+import ar.edu.unq.epers.home.Visibilidad
+import java.util.List
 
 class MainService {
 	
@@ -77,6 +80,13 @@ class MainService {
 	def amigosDe(Usuario usuario) {
 		amigosService.amigosDe(usuario)
 	}
+	
+	/**
+	 * Indica si dos usuarios son amigos
+	 */
+	def sonAmigos(Usuario usuario1,Usuario usuario2){
+		amigosDe(usuario2).contains(usuario1)
+	}
 	/**
 	 * Retorna un usuario
 	 */
@@ -110,15 +120,34 @@ class MainService {
 	 * Retorna toda la lista de reservas que hizo un usuario
 	 */
 	def consultarReservas(Usuario usuario) {
-		hbmRunner.run([reservaHome.getPorUsername(usuario)])
+		hbmRunner.run([reservaHome.getPorUsername(usuario.usuario)])
 	}
 	
-	def calificar(Object object, Object object2, Calificacion calificacion, String string) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	def calificar(Usuario usuario, Reserva reserva, Calificacion calificacion, String unTexto, Visibilidad unaVisibilidad) {
+		comentariosService.calificar(usuario,reserva,calificacion,unTexto,unaVisibilidad)
 	}
 	
-	def obtenerComentario(Object object) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	def obtenerComentario(Reserva unaReserva) {
+		comentariosService.obtenerComentario(unaReserva)
+	}
+	
+	def obtenerPerfilDeUsuario(Usuario usuarioConsultor, Usuario usuarioConsultado) {
+		val listaDeVisibilidades = visibilidadesEntre(usuarioConsultado, usuarioConsultor)
+		comentariosService.obtenerPerfilDeUsuario(usuarioConsultado, listaDeVisibilidades)
+	}
+	
+	/**
+	 * Genera una lista de visibilidades (PRIVADO, PUBLICO, AMIGOS)
+	 * entre dos usuarios según su relación
+	 */
+	def private visibilidadesEntre(Usuario usuario, Usuario usuario2) {
+		val lista = newArrayList
+		visibilidadesPosibles.forEach[each | each.corresponde(usuario, usuario2, lista,this)]
+		lista
+	}
+	
+	def private visibilidadesPosibles() {
+		#[Visibilidad.AMIGOS, Visibilidad.PRIVADO, Visibilidad.PUBLICO]
 	}
 	
 }

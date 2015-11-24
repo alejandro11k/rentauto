@@ -18,4 +18,8 @@ class MemoryHomeLocator extends HomeLocator {
 	UsuarioMemoryHome usuarioHome = new UsuarioMemoryHome
 	CategoriaMemoryHome categoriaHome = new CategoriaMemoryHome
 	
+	override getReservaHome() {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
 }
