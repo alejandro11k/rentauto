@@ -102,10 +102,10 @@ class MainService {
 	 /**
 	  * Retorna los autos disponibles en una fecha y ubicacion
 	  */
-	  def autosEnUnaUbicacion(Ubicacion unaUbicacion, Date unaFecha){
+	  def autosEnUnaUbicacion(Ubicacion unaUbicacion, Date inicio, Date fin){
 	  	//empresaService.autosDisponibles(unaUbicacion,unaFecha)
 	  	//hbmRunner.run([reservaService.autosDisponibles(unaUbicacion,unaFecha,autoHome.all)])
-	  	hbmRunner.run([empresaService.autosEnUnaUbicacion(unaUbicacion,unaFecha)])
+	  	hbmRunner.run([empresaService.autosDisponibles(unaUbicacion,inicio,fin)])
 	  }
 	/**
 	 * Borra toda la información del sistema
