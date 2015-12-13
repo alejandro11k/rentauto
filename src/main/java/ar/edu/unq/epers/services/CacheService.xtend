@@ -26,8 +26,8 @@ class CacheService {
 			.select
 			.all
 			.from("rentauto","autosDisponibles")
-			.where(QueryBuilder.eq("fecha",inicio))
-			.and(QueryBuilder.eq("ubicacion",ubicacion))
+			.where(QueryBuilder.eq("fecha",inicio.time))
+			.and(QueryBuilder.eq("ubicacion",ubicacion.nombre))
 		cluster.connect.execute(statement)
 	}
 	

@@ -14,11 +14,13 @@ import static org.junit.Assert.*
 import ar.edu.unq.epers.services.CacheService
 import java.util.Date
 import com.datastax.driver.core.PreparedStatement
+import com.datastax.driver.core.Row
 
 class CassandraTest {
 	
 	MainService service
 	Auto unAuto
+	Auto otroAuto
 	Ubicacion retiro
 	Ubicacion constitucion
 	Cluster cluster
@@ -37,7 +39,9 @@ class CassandraTest {
 		session.execute("CREATE KEYSPACE rentauto 
 						WITH replication = 
 						{'class':'SimpleStrategy','replication_factor':3};")
-										
+		
+		//session.execute("CREATE TYPE rentauto.auto (patente text);")
+																
 		session.execute("CREATE TABLE rentauto.autosDisponibles(
    													fecha timestamp,
 													ubicacion text,
@@ -63,10 +67,16 @@ class CassandraTest {
 			categoria = new Turismo
 			ubicacionInicial = retiro
 		]
+		otroAuto = new Auto => [
+			marca='Ford'
+			modelo='Classic'
+			patente='GOD234'
+			categoria = new Turismo
+			ubicacionInicial = retiro
+		]
 		service.registrarAuto(unAuto)
 		navidad = nuevaFecha(2015,12,25)
 		//anioNuevo = nuevaFecha(2016,01,01)
-		val navidad2 = navidad.time
 		
 		cacheService = new CacheService()
 		
@@ -74,16 +84,34 @@ class CassandraTest {
 		//val query0 = "INSERT INTO autosDisponibles (fecha, ubicacion, autos) 
 		//				VALUES ('"+navidad2+"','Retiro',{'123ASD'});"	
 		
-		val query0 = "INSERT INTO autosDisponibles (fecha, ubicacion) 
-						VALUES ('"+navidad2+"','"+retiro.nombre+"');"
+		val query1 = "INSERT INTO autosDisponibles (fecha, ubicacion) 
+						VALUES ('"+navidad.time+"','"+retiro.nombre+"');"
 		
 		val query2 = "UPDATE autosDisponibles SET autos = autos+{'"+unAuto.patente+"'}
-						WHERE fecha = '"+navidad2+"' AND ubicacion='"+retiro.nombre+"';";	
+						WHERE fecha = '"+navidad.time+"' AND ubicacion='"+retiro.nombre+"';";	
+		val query3 = "UPDATE autosDisponibles SET autos = autos+{'"+otroAuto.patente+"'}
+						WHERE fecha = '"+navidad.time+"' AND ubicacion='"+retiro.nombre+"';";	
+						
 							
-		session.execute(query0);
+		session.execute(query1);
 		session.execute(query2);
+		session.execute(query3);
 		
 	}	
+	
+	@Test
+	def void nada(){
+		cluster = Cluster.builder.addContactPoint("127.0.0.1").build
+		session = cluster.connect
+		
+		val query = "SELECT * FROM rentauto.autosDisponibles 
+						WHERE fecha = '"+navidad.time+"' AND ubicacion='"+retiro.nombre+"';";	
+		
+		val q = session.execute(query);
+		
+		assertEquals(q.head.getSet("autos",String).get(0),unAuto.patente)
+		
+	}
 	
 	@Test
 	def void llenarLaCacheAlPedirAutos(){
