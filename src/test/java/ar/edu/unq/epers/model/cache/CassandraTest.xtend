@@ -37,14 +37,12 @@ class CassandraTest {
 		session.execute("CREATE KEYSPACE rentauto 
 						WITH replication = 
 						{'class':'SimpleStrategy','replication_factor':3};")
-						
-		session.execute("CREATE TYPE rentauto.auto (
-   							patente text);")				
-   										
+										
 		session.execute("CREATE TABLE rentauto.autosDisponibles(
-   													fecha text PRIMARY KEY,
+   													fecha timestamp,
 													ubicacion text,
-   													autos frozen<auto>);")
+   													autos set<text>,
+													PRIMARY KEY (fecha,ubicacion));")
    		
 		session.execute("USE rentauto")
 		
@@ -68,16 +66,21 @@ class CassandraTest {
 		service.registrarAuto(unAuto)
 		navidad = nuevaFecha(2015,12,25)
 		//anioNuevo = nuevaFecha(2016,01,01)
-		val navidad2 = navidad.toString
+		val navidad2 = navidad.time
 		
 		cacheService = new CacheService()
 		
-		val query1 = "INSERT INTO autosDisponibles (fecha, ubicacion) 
+		
+		//val query0 = "INSERT INTO autosDisponibles (fecha, ubicacion, autos) 
+		//				VALUES ('"+navidad2+"','Retiro',{'123ASD'});"	
+		
+		val query0 = "INSERT INTO autosDisponibles (fecha, ubicacion) 
 						VALUES ('"+navidad2+"','"+retiro.nombre+"');"
-		val query2 = "UPDATE rentauto.autosDisponible SET autos ="+unAuto.patente+
-						"WHERE fecha = '"+navidad2+"' AND ubicacion='"+retiro.nombre+"';";	
+		
+		val query2 = "UPDATE autosDisponibles SET autos = autos+{'"+unAuto.patente+"'}
+						WHERE fecha = '"+navidad2+"' AND ubicacion='"+retiro.nombre+"';";	
 							
-		session.execute(query1);
+		session.execute(query0);
 		session.execute(query2);
 		
 	}	
