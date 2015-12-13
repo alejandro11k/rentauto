@@ -6,6 +6,7 @@ import com.datastax.driver.core.Cluster
 import com.datastax.driver.core.Session
 import com.datastax.driver.core.Statement
 import com.datastax.driver.core.querybuilder.QueryBuilder
+import com.datastax.driver.core.PreparedStatement
 
 class CacheService {
 	
@@ -29,5 +30,6 @@ class CacheService {
 			.and(QueryBuilder.eq("ubicacion",ubicacion))
 		cluster.connect.execute(statement)
 	}
+	
 	
 }

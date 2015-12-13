@@ -13,6 +13,7 @@ import org.junit.Test
 import static org.junit.Assert.*
 import ar.edu.unq.epers.services.CacheService
 import java.util.Date
+import com.datastax.driver.core.PreparedStatement
 
 class CassandraTest {
 	
@@ -30,14 +31,29 @@ class CassandraTest {
 		// Connect to the cluster and keyspace "demo"
 		cluster = Cluster.builder.addContactPoint("127.0.0.1").build
 		session = cluster.connect
+		
 		session.execute("DROP KEYSPACE IF EXISTS rentauto")
+		
 		session.execute("CREATE KEYSPACE rentauto 
 						WITH replication = 
-						{'class':'SimpleStrategy','replication_factor':3};")		
-		fillMocks()
+						{'class':'SimpleStrategy','replication_factor':3};")
+						
+		session.execute("CREATE TYPE rentauto.auto (
+   							patente text);")				
+   										
+		session.execute("CREATE TABLE rentauto.autosDisponibles(
+   													fecha text PRIMARY KEY,
+													ubicacion text,
+   													autos frozen<auto>);")
+   		
+		session.execute("USE rentauto")
+		
+   		fillMocks()
 	}
 	
 	private def fillMocks() {
+		
+		service = new MainService
 		service.registrarUbicacion(new Ubicacion('Retiro'))
 		service.registrarUbicacion(new Ubicacion('Constitucion'))	
 		retiro = service.ubicacion('Retiro') 
@@ -52,6 +68,18 @@ class CassandraTest {
 		service.registrarAuto(unAuto)
 		navidad = nuevaFecha(2015,12,25)
 		//anioNuevo = nuevaFecha(2016,01,01)
+		val navidad2 = navidad.toString
+		
+		cacheService = new CacheService()
+		
+		val query1 = "INSERT INTO autosDisponibles (fecha, ubicacion) 
+						VALUES ('"+navidad2+"','"+retiro.nombre+"');"
+		val query2 = "UPDATE rentauto.autosDisponible SET autos ="+unAuto.patente+
+						"WHERE fecha = '"+navidad2+"' AND ubicacion='"+retiro.nombre+"';";	
+							
+		session.execute(query1);
+		session.execute(query2);
+		
 	}	
 	
 	@Test
