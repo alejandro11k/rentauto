@@ -13,6 +13,7 @@ import ar.edu.unq.epers.model.Usuario
 import java.util.Date
 import java.util.List
 import java.util.Set
+import java.util.ArrayList
 
 class EmpresaService extends Service {
 	
@@ -49,18 +50,22 @@ class EmpresaService extends Service {
 	
 	def realizarUnaReserva(IUsuario usuario, Ubicacion origen,Ubicacion destino,Date inicio,Date fin) throws NoHayAutosDisponiblesParaLaReserva{
 		val autos = autosDisponibles(origen,inicio,fin)
-		val auto = autos.head
-		if (auto != null){
+		
+		if (autos.length > 0){
 			new Reserva => [
 				it.origen = origen
 				it.destino = destino
 				it.inicio = inicio
 				it.fin = fin
-				it.auto = auto
+				it.auto = autos.get(0)
 				it.usuario = usuario
 				reservar()
 			]
-			return autos.tail
+			
+			val List<Auto> autos2 = new ArrayList<Auto>()
+			autos.tail.forEach[ x | autos2.add(x)]
+			 
+			return autos2
 		}
 		else
 			throw new NoHayAutosDisponiblesParaLaReserva

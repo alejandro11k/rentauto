@@ -62,6 +62,12 @@ class MainService {
 		hbmRunner.run([autoHome.save(auto)])
 	}
 	/**
+	 * Registra un Auto en el sistema
+	 */
+	def getAuto(String patente) {
+		hbmRunner.run([autoHome.getPorPatente(patente)])
+	}
+	/**
 	 * Permite realizar una reserva
 	 */
 	def realizarUnaReserva(Usuario usuario, Ubicacion origen, Ubicacion destino, Date inicio, Date fin) {

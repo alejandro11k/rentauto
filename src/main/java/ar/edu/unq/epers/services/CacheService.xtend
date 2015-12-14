@@ -10,6 +10,9 @@ import com.datastax.driver.core.PreparedStatement
 import ar.edu.unq.epers.model.Auto
 import ar.edu.unq.epers.model.general.MainService
 import ar.edu.unq.epers.model.Usuario
+import java.util.Calendar
+import java.util.List
+import java.util.ArrayList
 
 class CacheService {
 	
@@ -22,25 +25,37 @@ class CacheService {
 	}
 	
 	
-	
 	/**
 	 * Permite realizar una reserva
 	 */
 	def realizarUnaReserva(Usuario usuario, Ubicacion origen, Ubicacion destino, Date inicio, Date fin) {
 		
+		
+		var Auto auto = null
+		
 		// BUSCO EN LA CACHE
 		
-		var auto = null
+		auto = autosDisponibles(inicio,fin,origen)
 		
 		// SI TENGO EL AUTO
 		
-		//mainService.realizarUnaReserva(auto,usuario,origen,destino,inicio,fin)
+		if (auto!=null){
+			
+			mainService.realizarUnaReserva(auto,usuario,origen,destino,inicio,fin)
 		
-		// SI no lo tengo
+			//quito el auto de la cache :( later...
 		
-		var autos = mainService.realizarUnaReserva(usuario,origen,destino,inicio,fin)
+		}
+		else{
+			// SI no lo tengo
 		
-		// me falta popular la cache con la nueva busqueda :(  --> deberia venir en autos
+			var autos = mainService.realizarUnaReserva(usuario,origen,destino,inicio,fin)
+		
+			// me falta popular la cache con la nueva busqueda :(  --> deberia venir en autos
+		
+			agregarAutos(autos,origen,inicio,fin)
+			
+		}	
 		
 	}
 	
@@ -68,6 +83,10 @@ class CacheService {
 		getSession.execute(query)
 	}
 	
+	def agregarAutos(List<Auto> autos,Ubicacion ubicacion, Date inicio, Date fin){
+		
+	}
+	
 	def autosDisponibles(Date unaFecha, Ubicacion unaUbicacion){
 		var query = "SELECT * FROM rentauto.autosDisponibles 
 						WHERE fecha = '"+unaFecha.time+"' AND ubicacion='"+unaUbicacion.nombre+"';";	
@@ -75,22 +94,55 @@ class CacheService {
 		getSession.execute(query).head.getSet("autos",String)
 	}
 	
-	
-	
-	/**
-	 * Retorno los autos disponibles para una ubicación y
-	 * 	un rango de fechas dadas.
-	 */
-	def autosDisponibles(Ubicacion ubicacion, Date inicio, Date fin) {
-	val qb = new QueryBuilder(cluster)
-	val Statement statement = qb
-			.select
-			.all
-			.from("rentauto","autosDisponibles")
-			.where(QueryBuilder.eq("fecha",inicio.time))
-			.and(QueryBuilder.eq("ubicacion",ubicacion.nombre))
-		cluster.connect.execute(statement)
+	def Auto autosDisponibles(Date fechaInicio, Date fechaFin, Ubicacion unaUbicacion){
+		
+		var dias = fechasDeBusqueda(fechaInicio,fechaFin)
+		val autos = autosDisponibles(dias.head,unaUbicacion) 
+		
+		dias.tail.forEach[
+			x | autos.retainAll(autosDisponibles(x,unaUbicacion))
+		]
+		
+		mainService.getAuto(autos.head)
+		
 	}
+	
+	def fechasDeBusqueda(Date fechaInicio, Date fechaFin){
+		var fecha = fechaInicio
+		var dias = new ArrayList<Date>()
+		
+		while (fecha.before(fechaFin)){
+			dias.add(fecha)
+			fecha = fecha.addDays(1)
+		}
+		dias.add(fecha)
+		
+		dias
+	}
+	
+	def Date addDays(Date date, int days)
+    {
+        var Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days); //minus number would decrement the days
+        return cal.getTime();
+    }
+	
+	
+//	/**
+//	 * Retorno los autos disponibles para una ubicación y
+//	 * 	un rango de fechas dadas.
+//	 */
+//	def autosDisponibles(Ubicacion ubicacion, Date inicio, Date fin) {
+//	val qb = new QueryBuilder(cluster)
+//	val Statement statement = qb
+//			.select
+//			.all
+//			.from("rentauto","autosDisponibles")
+//			.where(QueryBuilder.eq("fecha",inicio.time))
+//			.and(QueryBuilder.eq("ubicacion",ubicacion.nombre))
+//		cluster.connect.execute(statement)
+//	}
 	
 	
 }
