@@ -53,7 +53,8 @@ class CacheService {
 		
 			// me falta popular la cache con la nueva busqueda :(  --> deberia venir en autos
 		
-			agregarAutos(autos,origen,inicio,fin)
+			if (autos.length>0)
+				agregarAutos(autos,origen,inicio,fin)
 			
 		}	
 		
@@ -83,15 +84,30 @@ class CacheService {
 		getSession.execute(query)
 	}
 	
-	def agregarAutos(List<Auto> autos,Ubicacion ubicacion, Date inicio, Date fin){
+	def agregarAutos(List<Auto> autos,Ubicacion unaUbicacion, Date fechaInicio, Date fechaFin){
 		
+		//Si los dias estan repetidos no va a andar :(
+		
+		var dias = fechasDeBusqueda(fechaInicio,fechaFin)
+		
+		dias.forEach[ dia | 
+			insertar(dia,unaUbicacion)
+			autos.forEach[ auto | 
+				agregarAuto(auto,dia,unaUbicacion)
+			]
+		]
 	}
 	
 	def autosDisponibles(Date unaFecha, Ubicacion unaUbicacion){
 		var query = "SELECT * FROM rentauto.autosDisponibles 
 						WHERE fecha = '"+unaFecha.time+"' AND ubicacion='"+unaUbicacion.nombre+"';";	
 		
-		getSession.execute(query).head.getSet("autos",String)
+		var result = getSession.execute(query)
+		
+		if (result.head == null)
+			return null					
+		//si da null rompe :(
+		result.head.getSet("autos",String)
 	}
 	
 	def Auto autosDisponibles(Date fechaInicio, Date fechaFin, Ubicacion unaUbicacion){
@@ -99,6 +115,9 @@ class CacheService {
 		var dias = fechasDeBusqueda(fechaInicio,fechaFin)
 		val autos = autosDisponibles(dias.head,unaUbicacion) 
 		
+		if (autos==null)
+			return null
+			
 		dias.tail.forEach[
 			x | autos.retainAll(autosDisponibles(x,unaUbicacion))
 		]

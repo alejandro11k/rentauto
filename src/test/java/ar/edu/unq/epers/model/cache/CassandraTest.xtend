@@ -66,6 +66,8 @@ class CassandraTest {
 		cacheService.agregarAuto(unAuto,navidad,retiro)
 		cacheService.agregarAuto(otroAuto,navidad,retiro)
 		
+		//Arreglar autos disponibles, los autos estan pero da null... ;(
+		
 		assertEquals(cacheService.autosDisponibles(navidad,retiro).get(0),unAuto.patente)
 		
 	}
@@ -108,6 +110,7 @@ class CassandraTest {
 			ubicacionInicial = retiro
 		]
 		service.registrarAuto(unAuto)
+		service.registrarAuto(otroAuto)
 		navidad = nuevaFecha(2015,12,25)
 		anioNuevo = nuevaFecha(2016,01,01)
 		
