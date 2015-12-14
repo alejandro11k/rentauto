@@ -65,9 +65,7 @@ class CassandraTest {
 		cacheService.insertar(navidad,retiro)
 		cacheService.agregarAuto(unAuto,navidad,retiro)
 		cacheService.agregarAuto(otroAuto,navidad,retiro)
-		
-		//Arreglar autos disponibles, los autos estan pero da null... ;(
-		
+				
 		assertEquals(cacheService.autosDisponibles(navidad,retiro).get(0),unAuto.patente)
 		
 	}

@@ -104,7 +104,7 @@ class CacheService {
 		
 		var result = getSession.execute(query)
 		
-		if (result.head == null)
+		if (result == null)
 			return null					
 		//si da null rompe :(
 		result.head.getSet("autos",String)
