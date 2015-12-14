@@ -91,7 +91,9 @@ class CacheService {
 		var dias = fechasDeBusqueda(fechaInicio,fechaFin)
 		
 		dias.forEach[ dia | 
+			
 			insertar(dia,unaUbicacion)
+			
 			autos.forEach[ auto | 
 				agregarAuto(auto,dia,unaUbicacion)
 			]
@@ -104,16 +106,16 @@ class CacheService {
 		
 		var result = getSession.execute(query)
 		
-		if (result == null)
-			return null					
-		//si da null rompe :(
-		result.head.getSet("autos",String)
+		if (result.availableWithoutFetching >= 1)
+			result.head.getSet("autos",String)
+		else
+			null
 	}
 	
 	def Auto autosDisponibles(Date fechaInicio, Date fechaFin, Ubicacion unaUbicacion){
 		
 		var dias = fechasDeBusqueda(fechaInicio,fechaFin)
-		val autos = autosDisponibles(dias.head,unaUbicacion) 
+		val autos = autosDisponibles(dias.get(0),unaUbicacion) 
 		
 		if (autos==null)
 			return null
