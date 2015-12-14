@@ -68,6 +68,12 @@ class MainService {
 		hbmRunner.run([empresaService.realizarUnaReserva(usuario,origen,destino,inicio,fin)])
 	}
 	/**
+	 * Realiza una reserva si chequear disponibilidad
+	 */
+	def realizarUnaReserva(Auto auto, Usuario usuario, Ubicacion origen, Ubicacion destino, Date inicio, Date fin) {
+		hbmRunner.run([empresaService.realizarUnaReserva(auto,usuario,origen,destino,inicio,fin)])
+	}
+	/**
 	 * Genera una relación de amistad entre dos usuarios
 	 */
 	def amigar(Usuario usuario, Usuario usuario2) {

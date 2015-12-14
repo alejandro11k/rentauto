@@ -48,7 +48,8 @@ class EmpresaService extends Service {
 	}
 	
 	def realizarUnaReserva(IUsuario usuario, Ubicacion origen,Ubicacion destino,Date inicio,Date fin) throws NoHayAutosDisponiblesParaLaReserva{
-		val auto = autosDisponibles(origen,inicio,fin).last
+		val autos = autosDisponibles(origen,inicio,fin)
+		val auto = autos.head
 		if (auto != null){
 			new Reserva => [
 				it.origen = origen
@@ -59,9 +60,24 @@ class EmpresaService extends Service {
 				it.usuario = usuario
 				reservar()
 			]
+			return autos.tail
 		}
 		else
 			throw new NoHayAutosDisponiblesParaLaReserva
+	}
+	/**
+	 * realiza una reserva de un auto sin chequear disponivilidad!
+	 */
+	def realizarUnaReserva(Auto auto,IUsuario usuario, Ubicacion origen,Ubicacion destino,Date inicio,Date fin) {
+		new Reserva => [
+			it.origen = origen
+			it.destino = destino
+			it.inicio = inicio
+			it.fin = fin
+			it.auto = auto
+			it.usuario = usuario
+			reservar()
+		]
 	}
 	
 }

@@ -15,6 +15,8 @@ import ar.edu.unq.epers.services.CacheService
 import java.util.Date
 import com.datastax.driver.core.PreparedStatement
 import com.datastax.driver.core.Row
+import ar.edu.unq.epers.model.Usuario
+import org.joda.time.DateTime
 
 class CassandraTest {
 	
@@ -26,7 +28,9 @@ class CassandraTest {
 	Cluster cluster
 	Session session
 	Date navidad
+	Date anioNuevo
 	CacheService cacheService
+	Usuario usuarioPrueba
 
 	@Before
 	def void setUp(){		
@@ -66,14 +70,20 @@ class CassandraTest {
 		
 	}
 	
-
 	@Test
-	def void llenarLaCacheAlPedirAutos(){
-		val obtenido = cacheService.autosDisponibles(retiro,navidad,navidad)
-		val esperado = newHashSet.add(unAuto)
-		
-		assertEquals(esperado,obtenido)
+	def void realizoUnaReservaYQuedaUnAutoEnLaCache(){
+		cacheService.realizarUnaReserva(usuarioPrueba,retiro,retiro,navidad,anioNuevo)
+		assertEquals(cacheService.autosDisponibles(navidad,retiro).get(0),otroAuto.patente)
 	}
+	
+
+//	@Test
+//	def void llenarLaCacheAlPedirAutos(){
+//		val obtenido = cacheService.autosDisponibles(retiro,navidad,navidad)
+//		val esperado = newHashSet.add(unAuto)
+//		
+//		assertEquals(esperado,obtenido)
+//	}
 	
 	
 	private def fillMocks() {
@@ -99,7 +109,19 @@ class CassandraTest {
 		]
 		service.registrarAuto(unAuto)
 		navidad = nuevaFecha(2015,12,25)
-		//anioNuevo = nuevaFecha(2016,01,01)
+		anioNuevo = nuevaFecha(2016,01,01)
+		
+		usuarioPrueba = new Usuario => [
+				nombre = "Pepe"
+				apellido = "Pruebas"
+				usuario = "usuarioPrueba"
+				password = "pss"
+				mail = "mail@mail.com"
+				nacimiento = new DateTime(1990,05,05,0,0) 
+				estaValidado = true
+			]
+			
+		service.registrarUsuario(usuarioPrueba)
 		
 	}	
 	

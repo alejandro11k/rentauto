@@ -8,14 +8,48 @@ import com.datastax.driver.core.Statement
 import com.datastax.driver.core.querybuilder.QueryBuilder
 import com.datastax.driver.core.PreparedStatement
 import ar.edu.unq.epers.model.Auto
+import ar.edu.unq.epers.model.general.MainService
+import ar.edu.unq.epers.model.Usuario
 
 class CacheService {
 	
 	Cluster cluster
+	MainService mainService
 	
 	new(){
 		cluster = Cluster.builder.addContactPoint("127.0.0.1").build
+		mainService = new MainService
 	}
+	
+	
+	
+	/**
+	 * Permite realizar una reserva
+	 */
+	def realizarUnaReserva(Usuario usuario, Ubicacion origen, Ubicacion destino, Date inicio, Date fin) {
+		
+		// BUSCO EN LA CACHE
+		
+		var auto = null
+		
+		// SI TENGO EL AUTO
+		
+		//mainService.realizarUnaReserva(auto,usuario,origen,destino,inicio,fin)
+		
+		// SI no lo tengo
+		
+		var autos = mainService.realizarUnaReserva(usuario,origen,destino,inicio,fin)
+		
+		// me falta popular la cache con la nueva busqueda :(  --> deberia venir en autos
+		
+	}
+	
+	
+	/**
+	 * estos metodos son solo para uso de cacheService, se mantienen publicos por razones
+	 * de test
+	 */
+	
 	
 	def getSession(){
 		cluster.connect
@@ -40,6 +74,8 @@ class CacheService {
 		
 		getSession.execute(query).head.getSet("autos",String)
 	}
+	
+	
 	
 	/**
 	 * Retorno los autos disponibles para una ubicación y
