@@ -53,12 +53,13 @@ class CacheService {
 		
 			// me falta popular la cache con la nueva busqueda :(  --> deberia venir en autos
 		
-			if (autos.length>0)
-				agregarAutos(autos,origen,inicio,fin)
+			agregarAutos(autos,origen,inicio,fin)
+			eliminar(autos.get(0),origen,inicio,fin)
 			
 		}	
 		
 	}
+	
 	
 	
 	/**
@@ -84,6 +85,11 @@ class CacheService {
 		getSession.execute(query)
 	}
 	
+	
+	def eliminar(Auto auto, Ubicacion ubicacion, Date date, Date date2) {
+		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+	}
+	
 	def agregarAutos(List<Auto> autos,Ubicacion unaUbicacion, Date fechaInicio, Date fechaFin){
 		
 		//Si los dias estan repetidos no va a andar :(
@@ -92,13 +98,23 @@ class CacheService {
 		
 		dias.forEach[ dia | 
 			
-			insertar(dia,unaUbicacion)
+			if(!cantidadDeAutosDisponibles(dia,unaUbicacion)) insertar(dia,unaUbicacion)
 			
 			autos.forEach[ auto | 
 				agregarAuto(auto,dia,unaUbicacion)
 			]
 		]
 	}
+	
+	def private cantidadDeAutosDisponibles(Date unaFecha, Ubicacion unaUbicacion){
+		var query = "SELECT * FROM rentauto.autosDisponibles 
+						WHERE fecha = '"+unaFecha.time+"' AND ubicacion='"+unaUbicacion.nombre+"';";	
+		
+		var result = getSession.execute(query)
+		
+		result.availableWithoutFetching >= 1
+	}
+	
 	
 	def autosDisponibles(Date unaFecha, Ubicacion unaUbicacion){
 		var query = "SELECT * FROM rentauto.autosDisponibles 
@@ -115,16 +131,26 @@ class CacheService {
 	def Auto autosDisponibles(Date fechaInicio, Date fechaFin, Ubicacion unaUbicacion){
 		
 		var dias = fechasDeBusqueda(fechaInicio,fechaFin)
-		val autos = autosDisponibles(dias.get(0),unaUbicacion) 
+		val autos = autosDisponibles(dias.get(0),unaUbicacion)
 		
-		if (autos==null)
-			return null
-			
-		dias.tail.forEach[
-			x | autos.retainAll(autosDisponibles(x,unaUbicacion))
-		]
+		if (tengoTodosLosDias(dias) && autos!=null){
+			autos.toSet
+			dias.forEach[
+				x | autos.retainAll(autosDisponibles(x,unaUbicacion))
+			]
+			mainService.getAuto(autos.head)
+		}
+		null	
+	}
+	
+	def private tengoTodosLosDias(ArrayList<Date> dates) {
+		val q = "SELECT fecha FROM rentauto.autosDisponibles"
+		var result = getSession.execute(q).all
 		
-		mainService.getAuto(autos.head)
+		val resultFecha = newArrayList
+		result.forEach[ x | resultFecha.add(x.getTimestamp(0)as Date)]
+		
+		resultFecha.containsAll(dates)
 		
 	}
 	

@@ -62,10 +62,10 @@ class EmpresaService extends Service {
 				reservar()
 			]
 			
-			val List<Auto> autos2 = new ArrayList<Auto>()
-			autos.tail.forEach[ x | autos2.add(x)]
+			//val List<Auto> autos2 = new ArrayList<Auto>()
+			//autos.tail.forEach[ x | autos2.add(x)]
 			 
-			return autos2
+			return autos
 		}
 		else
 			throw new NoHayAutosDisponiblesParaLaReserva

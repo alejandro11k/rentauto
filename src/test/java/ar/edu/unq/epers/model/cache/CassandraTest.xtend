@@ -23,12 +23,15 @@ class CassandraTest {
 	MainService service
 	Auto unAuto
 	Auto otroAuto
+	Auto unAuto2
+	Auto otroAuto2
 	Ubicacion retiro
 	Ubicacion constitucion
 	Cluster cluster
 	Session session
 	Date navidad
 	Date anioNuevo
+	Date reyes
 	CacheService cacheService
 	Usuario usuarioPrueba
 
@@ -73,8 +76,18 @@ class CassandraTest {
 	@Test
 	def void realizoUnaReservaYQuedaUnAutoEnLaCache(){
 		cacheService.realizarUnaReserva(usuarioPrueba,retiro,retiro,navidad,anioNuevo)
-		assertEquals(cacheService.autosDisponibles(navidad,retiro).get(0),otroAuto.patente)
+		assertEquals(cacheService.autosDisponibles(navidad,retiro).get(0),unAuto2.patente)
 	}
+	
+	@Test
+	def void realizoDosReservasQuePopulanLaCache(){
+		cacheService.realizarUnaReserva(usuarioPrueba,retiro,retiro,navidad,anioNuevo)
+		cacheService.realizarUnaReserva(usuarioPrueba,retiro,retiro,anioNuevo,reyes)
+		cacheService.realizarUnaReserva(usuarioPrueba,retiro,retiro,anioNuevo,reyes)
+		assertEquals(cacheService.autosDisponibles(anioNuevo,retiro).get(0),unAuto2.patente)
+	}
+	
+	
 	
 
 //	@Test
@@ -109,8 +122,28 @@ class CassandraTest {
 		]
 		service.registrarAuto(unAuto)
 		service.registrarAuto(otroAuto)
+		
+		unAuto2 = new Auto => [
+			marca='Chevrolet'
+			modelo='Classic'
+			patente='DAB234'
+			categoria = new Turismo
+			ubicacionInicial = retiro
+		]
+		otroAuto2 = new Auto => [
+			marca='Ford'
+			modelo='Classic'
+			patente='DOG234'
+			categoria = new Turismo
+			ubicacionInicial = retiro
+		]
+		service.registrarAuto(unAuto2)
+		service.registrarAuto(otroAuto2)
+		
+		
 		navidad = nuevaFecha(2015,12,25)
 		anioNuevo = nuevaFecha(2016,01,01)
+		reyes = nuevaFecha(2016,01,07)
 		
 		usuarioPrueba = new Usuario => [
 				nombre = "Pepe"
